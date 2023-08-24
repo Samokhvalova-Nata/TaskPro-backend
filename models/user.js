@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import {Schema, model} from "mongoose";
 
-import {emailRegexp} from "../constants/user-constants.js";
+import {emailRegexp, themeList} from "../constants/user-constants.js";
 
-import { handleSaveError, validateAtUpdate } from "./hooks.js";
+import {handleSaveError, validateAtUpdate} from "./hooks.js";
 
 const userSchema = new Schema({
     avatarURL: {
@@ -10,7 +10,7 @@ const userSchema = new Schema({
     },
     name: {
         type: String,
-        required: true,
+        required: [true, 'Name is required'],
     },
     email: {
         type: String,
@@ -22,11 +22,16 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Set password for user'],
     },
+    userTheme: {
+        type: String,
+        enum: themeList,
+        default: "light",
+    },
     token: {
         type: String
     },
 
-}, { versionKey: false, timestamps: true });
+}, {versionKey: false, timestamps: true});
 
 userSchema.pre("findOneAndUpdate", validateAtUpdate);
 

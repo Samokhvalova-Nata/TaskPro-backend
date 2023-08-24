@@ -1,4 +1,3 @@
-
 import jwt from "jsonwebtoken";
 
 import "dotenv/config";
@@ -20,7 +19,7 @@ const authenticate = async (req, res, next) => {
     try {
         const {id} = jwt.verify(token, JWT_SECRET);
         const user = await User.findById(id);
-        if (!user || !user.token) {
+        if (!user || !user.token || user.token !== token) {
             throw HttpError(401)
         }
         req.user = user;
