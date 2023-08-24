@@ -36,8 +36,9 @@ const signIn = async (req, res) => {
         token, user: {
             name: user.name,
             email: user.email,
+            userTheme: user.userTheme,
         },
     });
 };
 
-export default signIn
+export default signIn;

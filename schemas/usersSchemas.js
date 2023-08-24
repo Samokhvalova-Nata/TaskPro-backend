@@ -38,15 +38,17 @@ const userSigninSchema = Joi.object({
         .messages({
             "any.required": `"password" must be exist`
         })
-})
+});
 
-const themeSchema = Joi.object({
-    theme: Joi.string()
-        .valid(...themeList)
+const updateUserThemeSchema = Joi.object({
+    userTheme: Joi.string()
+        .valid(...themeList).required().messages({
+            "any.required": `"theme" must be exist`
+        })
 });
 
 export default {
     userSignupSchema,
     userSigninSchema,
-    themeSchema
-}
+    updateUserThemeSchema
+};

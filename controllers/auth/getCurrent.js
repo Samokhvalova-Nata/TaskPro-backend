@@ -1,11 +1,11 @@
 const getCurrent = async (req, res) => {
-    const {name, email, theme} = req.user;
+    const { name, email, userTheme } = req.user;
 
     res.status(200).json({
         name,
         email,
-        theme
+        userTheme
     });
 };
 
-export default getCurrent
+export default getCurrent;

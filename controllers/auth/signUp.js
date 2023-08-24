@@ -22,9 +22,10 @@ const signUp = async (req, res) => {
         user: {
             name: newUser.name,
             email: newUser.email,
+            userTheme: newUser.userTheme,
             avatarURL,
         },
     })
 };
 
-export default signUp
+export default signUp;

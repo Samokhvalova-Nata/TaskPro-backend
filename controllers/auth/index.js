@@ -4,6 +4,7 @@ import signUp from "./signUp.js";
 import signOut from "./signOut.js";
 import getCurrent from "./getCurrent.js";
 import updateAvatar from "./updateAvatar.js";
+import updateUserTheme from "./updateUserTheme.js";
 
 export default {
     signUp: controllerWrapper(signUp),
@@ -11,4 +12,5 @@ export default {
     getCurrent: controllerWrapper(getCurrent),
     signOut: controllerWrapper(signOut),
     updateAvatar: controllerWrapper(updateAvatar),
+    updateUserTheme: controllerWrapper(updateUserTheme),
 }
