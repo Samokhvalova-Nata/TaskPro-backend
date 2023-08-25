@@ -11,7 +11,7 @@ import usersSchemas from "../../schemas/usersSchemas.js";
 
 const authRouter = express.Router();
 
-authRouter.post('/signup', upload.single("avatar"), validateBody(usersSchemas.userSignupSchema), authController.signUp);
+authRouter.post('/signup', validateBody(usersSchemas.userSignupSchema), authController.signUp);
 
 authRouter.post('/signin', validateBody(usersSchemas.userSigninSchema), authController.signIn);
 

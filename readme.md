@@ -95,13 +95,13 @@
 ### PUT `https://askpro-backend.onrender.com/api/auth/update` - Update user profile
 - Отримує body у форматі data-form: 
   поля name, email, password у форматі Text з валідацією
-  поле avatarURL у форматі File отримує завантажений файл
+  поле avatar у форматі File отримує завантажений файл
 ```json
 {
   "name": "examplename",
   "email": "example@example.com",
   "password": "examplepassword",
-  "avatarURL": "тут буде посилання на зображення"
+  "avatar": "тут буде посилання на зображення"
 }
 ```
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
