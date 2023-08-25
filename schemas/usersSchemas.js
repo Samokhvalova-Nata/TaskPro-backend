@@ -49,17 +49,19 @@ const updateUserThemeSchema = Joi.object({
 
 const updateUserSchema = Joi.object({
     name: Joi.string()
-        .messages({
-            "any.required": `"name" must be exist`
-        }),
+        // .messages({
+        //     "any.required": `"name" must be exist`
+        // })
+    ,
     email: Joi.string()
         .pattern(emailRegexp),
     password: Joi.string()
         .min(8)
         .max(64)
-        .messages({
-            "any.required": `"password" must be exist`
-        }),
+        // .messages({
+        //     "any.required": `"password" must be exist`
+        // })
+    ,
     avatarURL: Joi.any(),
 });
 

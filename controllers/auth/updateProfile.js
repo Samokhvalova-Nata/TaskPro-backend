@@ -28,4 +28,4 @@ const updateProfile = async (req, res) => {
     res.status(201).json({name, email, password, avatarURL})
 };
 
-export default updateProfile
+export default updateProfile;
