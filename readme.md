@@ -93,9 +93,7 @@
 }
 ```
 ### PUT `https://askpro-backend.onrender.com/api/auth/update` - Update user profile
-- Отримує body у форматі data-form: 
-  поля name, email, password у форматі Text з валідацією
-  поле avatar у форматі File отримує завантажений файл
+- Отримує body у форматі data-form (поля name, email, password у форматі Text з валідацією, поле avatar у форматі File отримує завантажений файл) 
 ```json
 {
   "name": "examplename",
