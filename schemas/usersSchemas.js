@@ -5,6 +5,8 @@ import {emailRegexp, themeList} from "../constants/user-constants.js";
 
 const userSignupSchema = Joi.object({
     name: Joi.string()
+        .min(2)
+        .max(32)
         .required()
         .messages({
             "any.required": `"name" must be exist`
@@ -49,20 +51,13 @@ const updateUserThemeSchema = Joi.object({
 
 const updateUserSchema = Joi.object({
     name: Joi.string()
-        // .messages({
-        //     "any.required": `"name" must be exist`
-        // })
-    ,
+        .min(2)
+        .max(32),
     email: Joi.string()
         .pattern(emailRegexp),
     password: Joi.string()
         .min(8)
-        .max(64)
-        // .messages({
-        //     "any.required": `"password" must be exist`
-        // })
-    ,
-    avatarURL: Joi.any(),
+        .max(64),
 });
 
 export default {

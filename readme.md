@@ -54,13 +54,13 @@
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Шукає у моделі User користувача за _id.
-- Якщо користувача не існує, повертає json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
+- Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - В іншому випадку, видаляється токен у поточного юзера і повертається відповідь зі статусом 204 No Content.
 
 ### GET `https://askpro-backend.onrender.com/api/auth/current` - Get user data by token
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
-- Якщо користувача не існує, повертається повертає json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
+- Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
@@ -73,7 +73,7 @@
 ```
 
 ### PATCH `https://askpro-backend.onrender.com/api/auth/` - Update userTheme field
-- Отримує body у форматі (поле з валідацією, значення має бути одним з масиву ["light", "dark", "violet"]):
+- Отримує body у форматі (поле обов'язкове з валідацією, значення має бути з масиву ["light", "dark", "violet"]):
 ```json
 {
     "userTheme": "exampletheme"
@@ -92,4 +92,29 @@
   }
 }
 ```
-
+### PUT `https://askpro-backend.onrender.com/api/auth/update` - Update user profile
+- Отримує body у форматі data-form: 
+  поля name, email, password у форматі Text з валідацією
+  поле avatarURL у форматі File отримує завантажений файл
+```json
+{
+  "name": "examplename",
+  "email": "example@example.com",
+  "password": "examplepassword",
+  "avatarURL": "тут буде посилання на зображення"
+}
+```
+- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
+- При помилці валідації повертає <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
+- При зміні email або password видаляється токен у поточного юзера.
+- В разі успішного запиту повертається об'єкт і статус 200 OK:
+```json
+{
+   "user": {
+    "name": "examplename",
+    "email": "example@example.com",
+    "avatarURL": "тут буде посилання на зображення"
+  }
+}
+```

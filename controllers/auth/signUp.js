@@ -1,10 +1,8 @@
 import User from "../../models/user.js";
 
-import {HttpError, cloudinary} from "../../helpers/index.js";
+import {HttpError} from "../../helpers/index.js";
 
 import bcrypt from "bcrypt";
-
-import fs from "fs/promises";
 
 import jwt from "jsonwebtoken";
 
@@ -20,16 +18,10 @@ const signUp = async (req, res) => {
         throw HttpError(409, `Such email ${user.email} is already registered`);
     }
 
-    // const {path: filePath} = req.file;
-    // const {url: avatarURL} = await cloudinary.uploader.upload(filePath, {folder: "avatars"});
-
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
         ...req.body, password: hashPassword,
-        // avatarURL
     });
-
-    // await fs.unlink(filePath);
 
     const payload = {
         id: newUser._id,
@@ -43,7 +35,6 @@ const signUp = async (req, res) => {
             name: newUser.name,
             email: newUser.email,
             userTheme: newUser.userTheme,
-            // avatarURL,
         },
     })
 };

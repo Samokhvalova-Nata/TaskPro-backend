@@ -19,7 +19,7 @@ authRouter.post("/signout", authenticate, authController.signOut);
 
 authRouter.get("/current", authenticate, authController.getCurrent);
 
-authRouter.put("/profile", authenticate, upload.single("avatar"), validateBody(usersSchemas.updateUserSchema), authController.updateProfile);
+authRouter.put("/update", authenticate, upload.single("avatar"), validateBody(usersSchemas.updateUserSchema), authController.updateProfile);
 
 authRouter.patch("/", authenticate, isEmptyBody, validateBody(usersSchemas.updateUserThemeSchema), authController.updateUserTheme);
 

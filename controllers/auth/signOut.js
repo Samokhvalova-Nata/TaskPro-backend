@@ -8,4 +8,4 @@ const signOut = async (req, res) => {
     res.status(204).json({message: "Successful signOut"})
 };
 
-export default signOut
+export default signOut;
