@@ -11,7 +11,7 @@ import usersSchemas from "../../schemas/usersSchemas.js";
 
 const authRouter = express.Router();
 
-authRouter.post('/signup', validateBody(usersSchemas.userSignupSchema), authController.signUp);
+authRouter.post('/signup', upload.single("avatar"), validateBody(usersSchemas.userSignupSchema), authController.signUp);
 
 authRouter.post('/signin', validateBody(usersSchemas.userSigninSchema), authController.signIn);
 
@@ -19,7 +19,7 @@ authRouter.post("/signout", authenticate, authController.signOut);
 
 authRouter.get("/current", authenticate, authController.getCurrent);
 
-authRouter.patch("/avatars", authenticate, upload.single("avatar"), authController.updateAvatar);
+authRouter.put("/profile", authenticate, upload.single("avatar"), validateBody(usersSchemas.updateUserSchema), authController.updateProfile);
 
 authRouter.patch("/", authenticate, isEmptyBody, validateBody(usersSchemas.updateUserThemeSchema), authController.updateUserTheme);
 
