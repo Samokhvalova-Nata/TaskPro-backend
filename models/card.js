@@ -23,6 +23,7 @@ const cardSchema = new Schema({
     column: {
         type: Schema.Types.ObjectId,
         ref: 'column',
+        required: [true, 'Set column for card'],
     },
     orderNumber: {
         type: Number,
@@ -33,6 +34,6 @@ cardSchema.pre("findOneAndUpdate", validateAtUpdate);
 cardSchema.post("save", handleSaveError);
 cardSchema.post("findOneAndUpdate", handleSaveError);
 
-const Card = model("board", cardSchema);
+const Card = model("card", cardSchema);
 
 export default Card;

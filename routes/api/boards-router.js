@@ -11,15 +11,15 @@ boardsRouter.use(authenticate);
 
 boardsRouter.get("/", boardsController.getAllBoards);
 
-boardsRouter.get("/:boardId", isValidId, boardsController.getBoardById);
+boardsRouter.get("/:id", isValidId, boardsController.getBoardById);
 
 boardsRouter.post("/", isEmptyBody, validateBody(boardSchema.boardAddSchema), boardsController.addBoard);
 
-boardsRouter.delete("/:boardId", isValidId, boardsController.deleteBoard);
+boardsRouter.delete("/:id", isValidId, boardsController.deleteBoard);
 
-boardsRouter.put("/:boardId", isValidId, isEmptyBody, validateBody(boardSchema.boardAddSchema), boardsController.updateBoard);
+boardsRouter.put("/:id", isValidId, isEmptyBody, validateBody(boardSchema.boardAddSchema), boardsController.updateBoard);
 
-boardsRouter.patch("/:boardId/transport", isValidId, isEmptyBody, boardsController.transportBoard);
+boardsRouter.patch("/:id/transport", isValidId, isEmptyBody, boardsController.transportBoard);
 // TODO add transportSchema
 
 export default boardsRouter;

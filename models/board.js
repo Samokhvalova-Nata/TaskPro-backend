@@ -20,6 +20,7 @@ const boardSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',
+        required: [true, 'Set owner for board'],
     },
     orderNumber: {
         type: Number,

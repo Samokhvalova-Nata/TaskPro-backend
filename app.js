@@ -16,7 +16,7 @@ app.use(express.static("public"))
 
 app.use('/api/auth', authRouter)
 app.use('/api/boards', boardsRouter);
-// app.use('/api/column', columnRouter);
+// app.use('/api/columns', columnsRouter);
 // app.use('/api/cards', cardsRouter);
 
 app.use((req, res) => {
