@@ -6,9 +6,14 @@ const boardSchema = new Schema({
         type: String,
         required: [true, 'Set title for board'],
     },
+    icon: {
+        type: String,
+        // TODO
+    },
     background: {
         type: String,
         default: "",
+        // TODO
     },
     owner: {
         type: Schema.Types.ObjectId,

@@ -21,8 +21,10 @@
  {
   "token": "exampletoken",
   "user": {
+    "_id": "exampleid",
     "name": "examplename",
     "email": "example@example.com",
+    "avatarURL": "",
     "userTheme": "light"
   }
 }
@@ -43,8 +45,10 @@
 {
   "token": "exampletoken",
   "user": {
+    "_id": "exampleid",
     "name": "examplename",
     "email": "example@example.com",
+    "avatarURL": "тут буде посилання на зображення",
     "userTheme": "exampletheme"
   }
 }
@@ -64,9 +68,12 @@
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
+  "token": "exampletoken",
   "user": {
+    "_id": "exampleid",
     "name": "examplename",
     "email": "example@example.com",
+    "avatarURL": "тут буде посилання на зображення",
     "userTheme": "exampletheme"
   }
 }
@@ -76,7 +83,7 @@
 - Отримує body у форматі (поле обов'язкове з валідацією, значення має бути з масиву ["light", "dark", "violet"]):
 ```json
 {
-    "userTheme": "exampletheme"
+  "userTheme": "exampletheme"
 }
 ```
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
@@ -85,9 +92,12 @@
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
-   "user": {
+  "token": "exampletoken",
+  "user": {
+    "_id": "exampleid",
     "name": "examplename",
     "email": "example@example.com",
+    "avatarURL": "тут буде посилання на зображення",
     "userTheme": "exampletheme"
   }
 }
@@ -110,10 +120,13 @@
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
-   "user": {
+  "token": "exampletoken",
+  "user": {
+    "_id": "exampleid",
     "name": "examplename",
     "email": "example@example.com",
-    "avatarURL": "тут буде посилання на зображення"
+    "avatarURL": "тут буде посилання на зображення",
+    "userTheme": "exampletheme"
   }
 }
 ```

@@ -5,9 +5,6 @@ import {emailRegexp, themeList} from "../constants/user-constants.js";
 import {handleSaveError, validateAtUpdate} from "./hooks.js";
 
 const userSchema = new Schema({
-    avatarURL: {
-        type: String,
-    },
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -21,6 +18,10 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, 'Set password for user'],
+    },
+    avatarURL: {
+        type: String,
+        default: "",
     },
     userTheme: {
         type: String,

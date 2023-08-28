@@ -37,11 +37,14 @@ const updateProfile = async (req, res) => {
         const updateUser = await User.findByIdAndUpdate(_id, updateUserData, { new: true });
 
         res.status(200).json({
-        user: {
-            name: updateUser.name,
-            email: updateUser.email,
-            avatarURL: updateUser.avatarURL,
-        }
+            token: updateUser.token,
+            user: {
+                _id: updateUser._id,
+                name: updateUser.name,
+                email: updateUser.email,
+                avatarURL: updateUser.avatarURL,
+                userTheme: updateUser.userTheme,
+            }
     })
     } else {
         throw HttpError(400, 'Such data is already in use')
