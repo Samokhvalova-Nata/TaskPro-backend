@@ -3,6 +3,7 @@ import logger from "morgan";
 import cors from "cors";
 
 import authRouter from "./routes/api/auth-router.js";
+import boardsRouter from "./routes/api/boards-router.js";
 
 const app = express();
 
@@ -14,7 +15,9 @@ app.use(express.json());
 app.use(express.static("public"))
 
 app.use('/api/auth', authRouter)
-// app.use('/api/boards', boardsRouter);
+app.use('/api/boards', boardsRouter);
+// app.use('/api/column', columnRouter);
+// app.use('/api/cards', cardsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

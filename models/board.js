@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { handleSaveError, validateAtUpdate } from "./hooks.js";
+import { iconList, backgroundList } from "../constants/board-constants.js";
 
 const boardSchema = new Schema({
     title: {
@@ -8,12 +9,13 @@ const boardSchema = new Schema({
     },
     icon: {
         type: String,
-        // TODO
+        enum: iconList,
+        default: "project",
     },
     background: {
         type: String,
-        default: "",
-        // TODO
+        default: "no-background",
+        enum: backgroundList,
     },
     owner: {
         type: Schema.Types.ObjectId,
@@ -30,4 +32,4 @@ boardSchema.post("findOneAndUpdate", handleSaveError);
 
 const Board = model("board", boardSchema);
 
-export default Board;
+export default Board; 

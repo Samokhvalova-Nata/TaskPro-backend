@@ -13,4 +13,4 @@ export default {
     signOut: controllerWrapper(signOut),
     updateUserTheme: controllerWrapper(updateUserTheme),
     updateProfile: controllerWrapper(updateProfile),
-}
+};

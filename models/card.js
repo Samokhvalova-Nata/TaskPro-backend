@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { handleSaveError, validateAtUpdate } from "./hooks.js";
-import { priorityList } from "../constants/card-constants.js";
+import { priorityList, deadlineRegex } from "../constants/card-constants.js";
 
 const cardSchema = new Schema({
     title: {
@@ -17,8 +17,8 @@ const cardSchema = new Schema({
         default: "without priority",
     },
     deadline: {
-        type: Date,
-        // TODO validate date????
+        type: String,
+        match: deadlineRegex,
     },
     column: {
         type: Schema.Types.ObjectId,
