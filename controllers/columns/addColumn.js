@@ -1,12 +1,16 @@
 import Column from "../../models/column.js";
 import {HttpError} from "../../helpers/index.js";
+import Board from "../../models/board.js";
 
 const addColumn = async (req, res) => {
-    const {title, board} = req.body;
-    const existingColumn = await Column.findOne({
-        board,
-        title
-    });
+    const { board: boardId, title } = req.body;
+
+    const existingColumn = await Column.findOne({title});
+    const existingBoard = await Board.findById(boardId);
+
+    if (!existingBoard) {
+        throw HttpError(404, `Such board with id ${boardId} does not exist`)
+    }
     if (existingColumn) {
         throw HttpError(409, `Such column with title ${title} is already added`);
     }
