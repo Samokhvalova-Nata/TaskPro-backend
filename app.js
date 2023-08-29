@@ -4,6 +4,7 @@ import cors from "cors";
 
 import authRouter from "./routes/api/auth-router.js";
 import boardsRouter from "./routes/api/boards-router.js";
+import cardsRouter from "./routes/api/cards-router.js";
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use(express.static("public"))
 app.use('/api/auth', authRouter)
 app.use('/api/boards', boardsRouter);
 // app.use('/api/columns', columnsRouter);
-// app.use('/api/cards', cardsRouter);
+app.use('/api/cards', cardsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

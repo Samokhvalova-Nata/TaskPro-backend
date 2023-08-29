@@ -10,8 +10,8 @@ import transportBoard from "./transportBoard.js";
 export default {
     getAllBoards: controllerWrapper(getAllBoards),
     getBoardById: controllerWrapper(getBoardById),
-    deleteBoard: controllerWrapper(deleteBoard),
     addBoard: controllerWrapper(addBoard),
+    deleteBoard: controllerWrapper(deleteBoard),
     updateBoard: controllerWrapper(updateBoard),
     transportBoard: controllerWrapper(transportBoard),
 };
