@@ -1,0 +1,496 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Task Pro",
+    "description": "API documentation for GoIT project **Task Pro**",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "servers": [
+    {
+      "url": "https://askpro-backend.onrender.com"
+    },
+    {
+      "url": "https://localhost:5000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "Boards",
+      "description": "Boards endpoints"
+    },
+    {
+      "name": "Columns",
+      "description": "Columns endpoints"
+    },
+    {
+      "name": "Tasks",
+      "description": "Tasks endpoints"
+    }
+  ],
+  "paths": {
+    "/api/users/singup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User registration",
+        "parameters": [],
+        "requestBody": {
+          "description": "Registration user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSignupSchemaRequired"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created, registration successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignupSchemaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorNotFound"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Such email is already registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorConflict"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User login",
+        "parameters": [],
+        "requestBody": {
+          "description": "Login user",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User created, registration successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/signout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User logout",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/current": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get user data by token",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User exists in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/": {
+      "patch": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get user data by token",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Array's theme",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThemeOfArray"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User exists in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSignupSchemaRequired": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "user's name",
+            "example": "examplename"
+          },
+          "email": {
+            "type": "string",
+            "description": "user's email",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password",
+            "example": "examplepassword"
+          }
+        }
+      },
+      "UserSignupSchemaResponse": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "user's id in database",
+            "example": "exampleid"
+          },
+          "name": {
+            "type": "string",
+            "description": "user's name",
+            "example": "examplename"
+          },
+          "email": {
+            "type": "string",
+            "description": "user's email",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password",
+            "example": "$2b$10$CU0iS5W90rQGilkcOB6r.uHwS4uQwmWbTKj3UAv3aynxLzI2lBSzu"
+          },
+          "userTheme": {
+            "type": "string",
+            "description": "user's theme",
+            "example": "light"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "date create user",
+            "example": "2023-08-26T16:42:43.050Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "date update user",
+            "example": "2023-08-26T16:42:44.042Z"
+          },
+          "token": {
+            "type": "string",
+            "description": "user's token",
+            "example": "exampletoken"
+          }
+        }
+      },
+      "ErrorBadRequest": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Bad request or description of error"
+          }
+        }
+      },
+      "ErrorNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Not found"
+          }
+        }
+      },
+      "ErrorConflict": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Such email {email} is already registered"
+          }
+        }
+      },
+      "UserLogin": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user's email",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password",
+            "example": "examplepassword"
+          }
+        }
+      },
+      "UserSignInSchemaResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "user's token",
+            "example": "exampletoken"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "description": "user's id in database",
+                "example": "exampleid"
+              },
+              "name": {
+                "type": "string",
+                "description": "user's name",
+                "example": "examplename"
+              },
+              "email": {
+                "type": "string",
+                "description": "user's email",
+                "example": "example@example.com"
+              },
+              "userTheme": {
+                "type": "string",
+                "description": "user's theme",
+                "example": "exampletheme"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "http:://exampleURL",
+                "description": "link to user's avatar"
+              }
+            }
+          }
+        }
+      },
+      "ErrorUnautorized": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Unautorized email or password is wrong"
+          }
+        }
+      },
+      "ThemeOfArray": {
+        "type": "object",
+        "required": [
+          "userTheme"
+        ],
+        "properties": {
+          "userTheme": {
+            "type": "string",
+            "description": "User's theme",
+            "enum": [
+              "light",
+              "dark",
+              "violet"
+            ],
+            "example": "light"
+          }
+        }
+      }
+    }
+  }
+}
