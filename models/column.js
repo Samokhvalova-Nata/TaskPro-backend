@@ -19,6 +19,6 @@ columnSchema.pre("findOneAndUpdate", validateAtUpdate);
 columnSchema.post("save", handleSaveError);
 columnSchema.post("findOneAndUpdate", handleSaveError);
 
-const Column = model("board", columnSchema);
+const Column = model("column", columnSchema);
 
 export default Column;

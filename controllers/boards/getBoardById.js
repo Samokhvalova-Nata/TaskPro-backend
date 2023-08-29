@@ -3,7 +3,7 @@ import Board from "../../models/board.js";
 
 const getBoardById = async (req, res) => {
     const { id } = req.params;
-    console.log('id', id)
+
     const result = await Board.aggregate([
         {
             $match: {
