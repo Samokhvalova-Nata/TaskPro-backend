@@ -186,7 +186,7 @@
           "title": "exampletitle",
           "description": "exampledescription",
           "priority": "examplepriority",
-          "deadline": "exampledeadline"
+          "deadline": "DD-MM-YYYY"
         }
       ]
     }
@@ -320,7 +320,15 @@
 ### PUT `https://askpro-backend.onrender.com/api/cards/:id` - Update card by id
 - Отримує параметр id.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
-- Отримує body в json-форматі c оновленням будь-яких полів title, description, priority, deadline та column.
+- Отримує body в json-форматі c оновленням будь-яких полів title, description, priority, deadline:
+```json
+{
+  "title": "exampletitle",
+  "description": "exampledescription",
+  "priority": "examplepriority",
+  "deadline": "DD-MM-YYYY",
+}
+```
 - Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
 - Якщо такого id немає, повертається json з ключем "message": "Card with id not found" і статусом 404 Not Found
 - Якщо такий id і з body все добре, є повертається оновлений об'єкт картки зі статусом 200 OK:
