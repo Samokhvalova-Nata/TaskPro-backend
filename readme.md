@@ -275,6 +275,54 @@
 
 ## Columns
 
+### POST `https://askpro-backend.onrender.com/api/columns` - Add new column
+- Отримує body у форматі:
+```json
+{
+  "title": "exampletitle",
+  "board": "exampleid"
+}
+```
+- Усі поля обов'язкові з валідацією.
+- В полі board отримує id дошки, в яку додається колонка. Якщо дошки з таким id немає, повертається json з ключем "message": "Such board with id does not exist" і статусом 404 Not Found.
+- Якщо в базі є колонка з такою назвою, повертається json з ключем {"message": "Such column with title is already added"} і статусом 409 Conflict.
+- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required field"} і статусом 400 Bad Request.
+- Якщо з body все добре, додається унікальний ідентифікатор в об'єкт картки і повертається об'єкт з доданим id та статусом 201 Created:
+```json
+{
+  "_id": "exampleid",
+  "title": "exampletitle",
+  "board": "exampleid"
+}
+```
+
+### DELETE `https://askpro-backend.onrender.com/api/columns/:id` - Delete column
+- Не отримує body.
+- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Отримує параметр id.
+- Якщо такий id є, повертається json формату {"message": "Column successfully deleted"} зі статусом 200 OK.
+- Якщо такого id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found.
+
+### PUT `https://askpro-backend.onrender.com/api/columns/:id` - Update column by id
+- Отримує параметр id.
+- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Отримує body в json-форматі c оновленням поля title:
+```json
+{
+  "title": "exampletitle"
+}
+```
+- Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
+- Якщо такого id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found
+- Якщо такий id і з body все добре, є повертається оновлений об'єкт картки зі статусом 200 OK:
+```json
+{
+  "_id": "exampleid",
+  "title": "exampletitle",
+  "board": "exampleid"
+}
+```
 
 ## Cards
 
