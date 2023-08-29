@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 import Board from "../../models/board.js";
+import { HttpError } from "../../helpers/index.js";
 
 const getBoardById = async (req, res) => {
     const { id } = req.params;
+    const exsistBoard = await Board.findById(id);
+    if (!exsistBoard) {
+        throw HttpError(404, `Board with id=${id} not found`);
+    }
 
     const result = await Board.aggregate([
         {

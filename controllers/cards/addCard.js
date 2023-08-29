@@ -2,7 +2,6 @@ import { HttpError } from '../../helpers/index.js';
 import Card from "../../models/card.js";
 import Column from '../../models/column.js';
 
-
 const addCard = async (req, res) => {
     const { column: columnId } = req.body;
     const exsistColumn = await Column.findById(columnId);
