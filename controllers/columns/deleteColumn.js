@@ -7,7 +7,7 @@ const deleteColumn = async (req, res) => {
     if (!result) {
         throw HttpError(404, `Column with id=${id} not found`);
     }
-    res.status(200).json({ message: "Column successfully deleted" });
+    res.status(200).json({ message: "Column successfully deleted", deletedId: result._id});
 };
 
 export default deleteColumn;

@@ -4,11 +4,12 @@ import Board from "../../models/board.js";
 const deleteBoard = async (req, res) => {
     const { id } = req.params;
 
-    const result = Board.findByIdAndRemove(id);
+    const result = await Board.findByIdAndRemove(id);
+    console.log(result)
     if (!result) {
         throw HttpError(404, `Board with id=${id} not found`);
     }
-    res.status(200).json({ message: "Board deleted" });
+    res.status(200).json( {message: "Board deleted", deletedId: result._id });
 };
 
 export default deleteBoard;
