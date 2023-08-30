@@ -253,7 +253,13 @@
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Отримує параметр id.
-- Якщо такий id є, повертається json формату {"message": "Board deleted"} зі статусом 200 OK.
+- Якщо такий id є, дошка видаляється і повертається об'єкт зі статусом 200 OK:
+```json
+{
+  "message": "Board deleted",
+  "deletedId": "exampleid"
+}
+```
 - Якщо такого id немає, повертається json з ключем "message": "Board with id not found" і статусом 404 Not Found.
 
 ### PUT `https://askpro-backend.onrender.com/api/boards/:id` - Update board by id
@@ -301,7 +307,13 @@
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Отримує параметр id.
-- Якщо такий id є, повертається json формату {"message": "Column successfully deleted"} зі статусом 200 OK.
+- Якщо такий id є, колонка видаляється і повертається об'єкт зі статусом 200 OK:
+```json
+{
+  "message": "Column successfully deleted",
+  "deletedId": "exampleid"
+}
+```
 - Якщо такого id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found.
 
 ### PUT `https://askpro-backend.onrender.com/api/columns/:id` - Update column by id
@@ -362,7 +374,13 @@
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Отримує параметр id.
-- Якщо такий id є, повертається json формату {"message": "Card deleted"} зі статусом 200 OK.
+- Якщо такий id є, картка видаляється і повертається об'єкт зі статусом 200 OK:
+```json
+{
+  "message": "Card deleted",
+  "deletedId": "exampleid"
+}
+```
 - Якщо такого id немає, повертається json з ключем "message": "Card with id not found" і статусом 404 Not Found.
 
 ### PUT `https://askpro-backend.onrender.com/api/cards/:id` - Update card by id
