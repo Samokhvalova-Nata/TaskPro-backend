@@ -374,11 +374,15 @@
 - Не отримує body.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Отримує параметр id.
-- Якщо такий id є, картка видаляється і повертається об'єкт зі статусом 200 OK:
+- Якщо такий id є, картка видаляється і повертається об'єкт видаленоъ картки зі статусом 200 OK:
 ```json
 {
-  "message": "Card deleted",
-  "deletedId": "exampleid"
+  "_id": "exampleid",
+  "title": "exampletitle",
+  "description": "exampledescription",
+  "priority": "examplepriority",
+  "deadline": "DD-MM-YYYY",
+  "column": "exampleid"
 }
 ```
 - Якщо такого id немає, повертається json з ключем "message": "Card with id not found" і статусом 404 Not Found.

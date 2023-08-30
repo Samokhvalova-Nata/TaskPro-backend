@@ -7,7 +7,7 @@ const deleteCard = async (req, res) => {
     if (!result) {
         throw HttpError(404, `Card with id=${id} not found`);
     }
-    res.status(200).json({ message: "Card deleted", deletedId: result._id});
+    res.status(200).json(result);
 };
 
 export default deleteCard;

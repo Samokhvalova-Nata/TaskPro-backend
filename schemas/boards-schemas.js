@@ -10,8 +10,15 @@ const boardAddSchema = Joi.object({
     background: Joi.string().valid(...backgroundList),
 });
 
+const boardUpdateSchema = Joi.object({
+  title: Joi.string(),
+  icon: Joi.string().valid(...iconList),
+  background: Joi.string().valid(...backgroundList),
+});
+
 // TODO add transportSchema
 
 export default {
-    boardAddSchema
+  boardAddSchema,
+  boardUpdateSchema,
 };
