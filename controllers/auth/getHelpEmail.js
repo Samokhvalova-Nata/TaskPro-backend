@@ -6,7 +6,7 @@ const getHelpEmail = async (req, res) => {
 
     const helpRequest = {
         to: "taskpro.project@gmail.com",
-        subject: "User need help",
+        subject: "User needs help",
         html: `<div><p>Registered user of the application: <strong>${name}</strong></p>
                 <p>Message from user: <strong>${comment}</strong></p>
                 <p>Send response to email: <strong>${email}</strong></p><div/>`,

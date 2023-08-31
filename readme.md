@@ -131,6 +131,19 @@
 }
 ```
 
+### POST `https://askpro-backend.onrender.com/api/auth/support` - Send request help letter
+- Отримує body у форматі (поля email, comment обов'язкові з валідацією):
+```json
+{
+  "email": "example@example.com",
+  "comment": "examplecomment"
+}
+```
+- При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
+- Якщо з body все добре, виконується відправка листа з коментарем юзера на імейл служби підтримки (taskpro.project@gmail.com) та листа зі сповіщенням про отримання запиту про допомогу на імейл користувача.
+- За результатом успішної роботи повертається json з ключем {"message":"Reply email has been sent"} зі статусом 200 OK.
+
+
 ## Boards
 
 ### GET `https://askpro-backend.onrender.com/api/boards` - Get all user boards
