@@ -8,6 +8,8 @@ import {validateBody} from "../../decorators/index.js";
 
 import usersSchemas from "../../schemas/usersSchemas.js";
 
+import {supportSchema} from "../../schemas/supportSchema.js";
+
 
 const authRouter = express.Router();
 
@@ -22,5 +24,7 @@ authRouter.get("/current", authenticate, authController.getCurrent);
 authRouter.put("/update", authenticate, upload.single("avatar"), validateBody(usersSchemas.updateUserSchema), authController.updateProfile);
 
 authRouter.patch("/", authenticate, isEmptyBody, validateBody(usersSchemas.updateUserThemeSchema), authController.updateUserTheme);
+
+authRouter.post("/support", authenticate, validateBody(supportSchema),authController.getHelpEmail);
 
 export default authRouter;
