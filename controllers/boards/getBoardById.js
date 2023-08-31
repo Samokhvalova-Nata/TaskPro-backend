@@ -77,7 +77,7 @@ const getBoardById = async (req, res) => {
         }
     ]);
 
-    res.json(result);
+    res.json(result[0]);
 };
 
 export default getBoardById;
