@@ -145,6 +145,7 @@
       "title": "exampletitle",
       "icon": "exampleicon",
       "background": "examplebackground",
+      "backgroundURL": {},
       "owner": {
         "_id": "exampleid",
         "name": "examplename",
@@ -169,6 +170,7 @@
   "title": "exampletitle",
   "icon": "exampleicon",
   "background": "examplebackground",
+  "backgroundURL": {},
   "owner": {
     "_id": "exampleid",
     "name": "examplename",
@@ -238,14 +240,29 @@
 ```
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
 - Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required title field"} і статусом 400 Bad Request.
-- Якщо з body все добре, додається унікальний ідентифікатор в об'єкт дошки і повертається об'єкт з доданим id та статусом 201 Created:
+- Якщо з body все добре, додається унікальний ідентифікатор в об'єкт дошки і повертається об'єкт з доданим id та статусом 201 Created у форматі:
 ```json
 {
   "_id": "exampleid",
   "title": "exampletitle",
   "icon": "exampleicon",
-  "background": "тут буде посилання на зображення",
+  "background": "examplebackground",
+  "backgroundURL": {},
   "owner": "exampleid"
+}
+```
+- Якщо поле background не передане або передане значення "no-background", в об'єкті дошки в полі backgroundURL повертаєтся пустий об'єкт {}.
+- Якщо в поле background передане інше значення, в об'єкті дошки в полі backgroundURL повертаєтся об'єкт у форматі:
+```json
+{
+  "backgroundURL": {
+    "mobile_1x": "посилання на зображення для мобільної версії 1x",
+    "mobile_2x": "посилання на зображення для мобільної версії 2x",
+    "tablet_1x": "посилання на зображення для планшетної версії 1x",
+    "tablet_2x": "посилання на зображення для планшетної версії 2x",
+    "desktop_1x": "посилання на зображення для десктопної версії 1x",
+    "desktop_2x": "посилання на зображення для десктопної версії 2x",
+  }
 }
 ```
 
@@ -265,7 +282,7 @@
 ### PUT `https://askpro-backend.onrender.com/api/boards/:id` - Update board by id
 - Отримує параметр id.
 - Обов'язковий заголовок Authorization: "Bearer {{token}}".
-- Отримує body в json-форматі c оновленням будь-яких полів title, icon и background.
+- Отримує body в json-форматі c оновленням будь-яких полів title, icon та background.
 - Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
 - Якщо такого id немає, повертається json з ключем "message": "Board with id not found" і статусом 404 Not Found
 - Якщо такий id і з body все добре, є повертається оновлений об'єкт дошки зі статусом 200 OK:
@@ -274,8 +291,23 @@
   "_id": "exampleid",
   "title": "exampletitle",
   "icon": "exampleicon",
-  "background": "тут буде посилання на зображення",
+  "background": "examplebackground",
+  "backgroundURL": {},
   "owner": "exampleid"
+}
+```
+- Якщо поле background передане значення "no-background", в об'єкті дошки в полі backgroundURL повертаєтся пустий об'єкт {}.
+- Якщо в поле background передане інше значення, в об'єкті дошки в полі backgroundURL повертаєтся об'єкт у форматі:
+```json
+{
+  "backgroundURL": {
+    "mobile_1x": "посилання на зображення для мобільної версії 1x",
+    "mobile_2x": "посилання на зображення для мобільної версії 2x",
+    "tablet_1x": "посилання на зображення для планшетної версії 1x",
+    "tablet_2x": "посилання на зображення для планшетної версії 2x",
+    "desktop_1x": "посилання на зображення для десктопної версії 1x",
+    "desktop_2x": "посилання на зображення для десктопної версії 2x",
+  }
 }
 ``` 
 

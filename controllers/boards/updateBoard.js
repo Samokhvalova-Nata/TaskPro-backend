@@ -6,17 +6,16 @@ const updateBoard = async (req, res) => {
     const { id } = req.params;
     const { background } = req.body;
 
-    // TODO download background from Cloudinary
-    // if (background !== "no-background") {
-    //     const updateBcg = await fetchFromCloudinary(background)
-    // }
-    // TODO backgroundURL in board modal
-    const result = await Board.findByIdAndUpdate(id, req.body, { new: true });
-    // const result = await Board.findByIdAndUpdate(id,{ ...req.body, backgroundURL: updateBcg }, { new: true });
+    const updateBoardData = { ...req.body };
+
+    if (background ) {
+        updateBoardData.backgroundURL = await fetchFromCloudinary(background);
+    }
+
+    const result = await Board.findByIdAndUpdate(id, updateBoardData, { new: true });
     if (!result) {
         throw HttpError(404, `Board with id=${id} not found`)
     }
-
 
     res.json(result);
 };

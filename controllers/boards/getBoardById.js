@@ -71,6 +71,7 @@ const getBoardById = async (req, res) => {
                 title: { '$first': '$title' },
                 icon: { '$first': '$icon' },
                 background: { '$first': '$background' },
+                backgroundURL: { '$first': '$backgroundURL' },
                 owner: { '$first': '$owner' },
                 columns: { '$push': '$columns' }
             }

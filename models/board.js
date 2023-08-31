@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import { handleSaveError, validateAtUpdate } from "./hooks.js";
 import { iconList, backgroundList } from "../constants/board-constants.js";
 
+
 const boardSchema = new Schema({
     title: {
         type: String,
@@ -17,6 +18,10 @@ const boardSchema = new Schema({
         default: "no-background",
         enum: backgroundList,
     },
+    backgroundURL: {
+        type: Object,
+        default: {},
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -25,7 +30,7 @@ const boardSchema = new Schema({
     orderNumber: {
         type: Number,
     },
-}, { versionKey: false, timestamps: true });
+}, { versionKey: false, timestamps: true, minimize: false });
 
 boardSchema.pre("findOneAndUpdate", validateAtUpdate);
 boardSchema.post("save", handleSaveError);
