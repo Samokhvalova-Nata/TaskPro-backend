@@ -25,6 +25,8 @@ authRouter.put("/update", authenticate, upload.single("avatar"), validateBody(us
 
 authRouter.patch("/", authenticate, isEmptyBody, validateBody(usersSchemas.updateUserThemeSchema), authController.updateUserTheme);
 
+authRouter.post("/refresh", validateBody(usersSchemas.refreshSchema), authController.refresh);
+
 authRouter.post("/support", authenticate, validateBody(supportSchema),authController.getHelpEmail);
 
 export default authRouter;

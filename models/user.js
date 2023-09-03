@@ -28,7 +28,10 @@ const userSchema = new Schema({
         enum: themeList,
         default: "light",
     },
-    token: {
+    accessToken: {
+        type: String
+    },
+    refreshToken: {
         type: String
     },
 
