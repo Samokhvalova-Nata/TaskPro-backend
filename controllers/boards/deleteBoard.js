@@ -9,6 +9,7 @@ const deleteBoard = async (req, res) => {
     if (!result) {
         throw HttpError(404, `Board with id=${id} not found`);
     }
+    // TODO Delete all column and cards from this board
     res.status(200).json( {message: "Board deleted", deletedId: result._id });
 };
 

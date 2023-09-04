@@ -16,10 +16,11 @@
 ```
 - При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
 - Якщо пошта вже використовується кимось іншим, повертається json з ключем {"message": "Such email is already registered"} і статусом 409 Conflict.
-- За результатом роботи створюється токен та повертається об'єкт і статус 201 Created:
+- За результатом роботи створюється пара токенів (refreshToken та accessToken) та повертається об'єкт і статус 201 Created:
 ```json
  {
-  "token": "exampletoken",
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken",
   "user": {
     "_id": "exampleid",
     "name": "examplename",
@@ -40,10 +41,11 @@
 ```
 - При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
 - Якщо пароль або імейл невірний, повертається json з ключем {"message": "Email or password is wrong"} і статусом 401 Unauthorized.
-- В іншому випадку, порівнюється пароль для знайденого користувача; якщо паролі збігаються, створюється токен, зберігається в поточного юзера і повертається об'єкт і статус 200 OK:
+- В іншому випадку, порівнюється пароль для знайденого користувача; якщо паролі збігаються, створюється пара токенів (refreshToken та accessToken), зберігається в поточного юзера і повертається об'єкт і статус 200 OK:
 ```json
 {
-  "token": "exampletoken",
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken",
   "user": {
     "_id": "exampleid",
     "name": "examplename",
@@ -56,19 +58,20 @@
 
 ### POST `https://askpro-backend.onrender.com/api/auth/signout` - Signout user
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Шукає у моделі User користувача за _id.
 - Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
-- В іншому випадку, видаляється токен у поточного юзера і повертається відповідь зі статусом 204 No Content.
+- В іншому випадку, видаляється пара токенів (refreshToken та accessToken) у поточного юзера і повертається відповідь зі статусом 204 No Content.
 
-### GET `https://askpro-backend.onrender.com/api/auth/current` - Get user data by token
+### GET `https://askpro-backend.onrender.com/api/auth/current` - Get user data by accessToken
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
-  "token": "exampletoken",
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken",
   "user": {
     "_id": "exampleid",
     "name": "examplename",
@@ -86,13 +89,14 @@
   "userTheme": "exampletheme"
 }
 ```
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо користувача не існує, повертається повертає json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
-  "token": "exampletoken",
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken",
   "user": {
     "_id": "exampleid",
     "name": "examplename",
@@ -109,18 +113,19 @@
   "name": "examplename",
   "email": "example@example.com",
   "password": "examplepassword",
-  "avatar": "тут буде посилання на зображення"
+  "avatar": "file.jpg"
 }
 ```
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
-- При зміні email або password видаляється токен у поточного юзера.
+- При зміні email або password видаляється пара токенів (refreshToken та accessToken) у поточного юзера.
 - Якщо значення полів name, email збігаються з попередніми, повертається json з ключем {"message": "Such data is already in use"} і статусом 400 Bad Request.  
 - В іншому випадку повертається об'єкт і статус 200 OK:
 ```json
 {
-  "token": "exampletoken",
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken",
   "user": {
     "_id": "exampleid",
     "name": "examplename",
@@ -139,10 +144,29 @@
   "comment": "examplecomment"
 }
 ```
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
+- Якщо користувача не існує, повертається json з ключем {"message": "Not authorized"} і статусом 401 Unauthorized.
 - При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
 - Якщо з body все добре, виконується відправка листа з коментарем юзера на імейл служби підтримки (taskpro.project@gmail.com) та листа зі сповіщенням про отримання запиту про допомогу на імейл користувача.
-- За результатом успішної роботи повертається json з ключем {"message":"Reply email has been sent"} зі статусом 200 OK.
+- За результатом успішної роботи повертається json з ключем {"message": "Reply email has been sent"} зі статусом 200 OK.
 
+### POST `https://askpro-backend.onrender.com/api/auth/refresh` - Refresh user token
+- Отримує body у форматі з обов'язковим полем refreshToken з валідацією:
+```json
+{
+  "refreshToken": "examplerefreshToken"
+}
+```
+- При помилці валідації повертається <Помилка від Joi або іншої бібліотеки валідації> і статусом 400 Bad Request.
+- Якщо з body все добре, перевіряється чи існує юзер з таким refreshToken.
+- Якщо не існує, повертається json з ключем {"message": "Invalid token"} і статусом 403 Forbidden.
+- Якщо існує, створюється пара токенів (refreshToken та accessToken), зберігається в поточного юзера і повертається об'єкт і статус 200 OK:
+```json
+{
+  "accessToken": "exampleaccessToken",
+  "refreshToken": "examplerefreshToken"
+}
+``` 
 
 ## Boards
 

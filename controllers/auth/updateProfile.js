@@ -21,12 +21,14 @@ const updateProfile = async (req, res) => {
             );
         }
         updateUserData.email = newEmail;
-        updateUserData.token = "";
+        updateUserData.accessToken = "";
+        updateUserData.refreshToken = "";
     }
 
     if (password) {
         updateUserData.password = await bcrypt.hash(password, 10);
-        updateUserData.token = "";
+        updateUserData.accessToken = "";
+        updateUserData.refreshToken = "";
     }
 
     if (req.file) {
@@ -37,7 +39,8 @@ const updateProfile = async (req, res) => {
         const updateUser = await User.findByIdAndUpdate(_id, updateUserData, { new: true });
 
         res.status(200).json({
-            token: updateUser.token,
+            accessToken: updateUser.accessToken,
+            refreshToken: updateUser.refreshToken,
             user: {
                 _id: updateUser._id,
                 name: updateUser.name,

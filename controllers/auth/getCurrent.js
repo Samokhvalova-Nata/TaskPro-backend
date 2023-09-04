@@ -1,8 +1,9 @@
 const getCurrent = (req, res) => {
-    const { token, _id, name, email, avatarURL, userTheme } = req.user;
+    const { accessToken, refreshToken, _id, name, email, avatarURL, userTheme } = req.user;
 
     res.status(200).json({
-        token,
+        accessToken,
+        refreshToken,
         user: {
             _id,
             name,

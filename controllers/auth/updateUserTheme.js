@@ -5,7 +5,8 @@ const updateUserTheme = async (req, res) => {
     const result = await User.findByIdAndUpdate(_id, req.body, { new: true });
 
     res.status(200).json({
-        token: result.token,
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
         user: {
             _id: result._id,
             name: result.name,
