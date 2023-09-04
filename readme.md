@@ -172,7 +172,7 @@
 
 ### GET `https://askpro-backend.onrender.com/api/boards` - Get all user boards
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Повертається масив об'єктів всіх дошок в json-форматі зі статусом 200 OK:
 ```json
 {
@@ -197,7 +197,7 @@
 
 ### GET `https://askpro-backend.onrender.com/api/boards/:id` - Get user board by id
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує параметр id.
 - Якщо такого id немає, повертається json з ключем "message": "Board with id not found" і статусом 404 Not Found.
 - Якщо такий id є, повертається об'єкт дошки (містить об'єкт користувача (owner), масив об'єктів колонок (columns) з масивом об'єктів карток (cards)) в json-форматі зі статусом 200 OK:
@@ -275,7 +275,7 @@
 ]
 }
 ```
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required title field"} і статусом 400 Bad Request.
 - Якщо з body все добре, додається унікальний ідентифікатор в об'єкт дошки і повертається об'єкт з доданим id та статусом 201 Created у форматі:
 ```json
@@ -305,7 +305,7 @@
 
 ### DELETE `https://askpro-backend.onrender.com/api/boards/:id` - Delete board
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує параметр id.
 - Якщо такий id є, дошка видаляється і повертається об'єкт зі статусом 200 OK:
 ```json
@@ -318,7 +318,7 @@
 
 ### PUT `https://askpro-backend.onrender.com/api/boards/:id` - Update board by id
 - Отримує параметр id.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує body в json-форматі c оновленням будь-яких полів title, icon та background.
 - Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
 - Якщо такого id немає, повертається json з ключем "message": "Board with id not found" і статусом 404 Not Found
@@ -361,7 +361,7 @@
 - Усі поля обов'язкові з валідацією.
 - В полі board отримує id дошки, в яку додається колонка. Якщо дошки з таким id немає, повертається json з ключем "message": "Such board with id does not exist" і статусом 404 Not Found.
 - Якщо в базі є колонка з такою назвою, повертається json з ключем {"message": "Such column with title is already added"} і статусом 409 Conflict.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required field"} і статусом 400 Bad Request.
 - Якщо з body все добре, додається унікальний ідентифікатор в об'єкт картки і повертається об'єкт з доданим id та статусом 201 Created:
 ```json
@@ -374,7 +374,7 @@
 
 ### DELETE `https://askpro-backend.onrender.com/api/columns/:id` - Delete column
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує параметр id.
 - Якщо такий id є, колонка видаляється і повертається об'єкт зі статусом 200 OK:
 ```json
@@ -387,7 +387,7 @@
 
 ### PUT `https://askpro-backend.onrender.com/api/columns/:id` - Update column by id
 - Отримує параметр id.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує body в json-форматі c оновленням поля title:
 ```json
 {
@@ -418,14 +418,14 @@
   "column": "exampleid"
 }
 ```
-- Усі поля з валідацією, поля title, description та column обов'язкові, значення поля priority має бути з масиву:
+- Усі поля з валідацією, поля title та column обов'язкові, значення поля priority має бути з масиву:
 ```json
 {
   "priorityList": ["without priority", "low", "medium", "high"]
 }
 ```
 - В полі column отримує id колонки, в яку додається картка. Якщо колонки з таким id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required field"} і статусом 400 Bad Request.
 - Якщо з body все добре, додається унікальний ідентифікатор в об'єкт картки і повертається об'єкт з доданим id та статусом 201 Created:
 ```json
@@ -441,7 +441,7 @@
 
 ### DELETE `https://askpro-backend.onrender.com/api/cards/:id` - Delete card
 - Не отримує body.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує параметр id.
 - Якщо такий id є, картка видаляється і повертається об'єкт видаленоъ картки зі статусом 200 OK:
 ```json
@@ -458,7 +458,7 @@
 
 ### PUT `https://askpro-backend.onrender.com/api/cards/:id` - Update card by id
 - Отримує параметр id.
-- Обов'язковий заголовок Authorization: "Bearer {{token}}".
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Отримує body в json-форматі c оновленням будь-яких полів title, description, priority, deadline:
 ```json
 {

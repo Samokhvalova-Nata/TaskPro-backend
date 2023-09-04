@@ -7,10 +7,7 @@ const cardAddSchema = Joi.object({
         .messages({
             "any.required": `missing required "title" field`,
         }),
-    description: Joi.string().required()
-        .messages({
-            "any.required": `missing required "description" field`,
-        }),
+    description: Joi.string(),
     priority: Joi.string().valid(...priorityList),
     deadline: Joi.string().pattern(deadlineRegex),
     column: Joi.string().required()
