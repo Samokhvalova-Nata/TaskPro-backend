@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 
-const { JWT_SECRET } = process.env;
+const { ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 const signUp = async (req, res) => {
     const {email, password} = req.body;
@@ -26,11 +26,13 @@ const signUp = async (req, res) => {
     const payload = {
         id: newUser._id,
     };
-    const token = jwt.sign(payload, JWT_SECRET, {expiresIn: "23h"});
-    await User.findByIdAndUpdate(newUser._id, {token});
+    const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {expiresIn: "2m"});
+    const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {expiresIn: "7d"});
+    await User.findByIdAndUpdate(newUser._id, {accessToken, refreshToken});
 
     res.status(201).json({
-        token,
+        accessToken,
+        refreshToken,
         user: {
             _id: newUser._id,
             name: newUser.name,

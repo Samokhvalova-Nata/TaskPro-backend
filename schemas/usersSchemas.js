@@ -60,9 +60,18 @@ const updateUserSchema = Joi.object({
         .max(64),
 });
 
+const refreshSchema = Joi.object({
+    refreshToken: Joi.string()
+        .required()
+        .messages({
+            "any.required": `"refreshToken" must be exist`
+        })
+});
+
 export default {
     userSignupSchema,
     userSigninSchema,
     updateUserThemeSchema,
-    updateUserSchema
+    updateUserSchema,
+    refreshSchema
 };

@@ -6,6 +6,7 @@ import getCurrent from "./getCurrent.js";
 import updateUserTheme from "./updateUserTheme.js";
 import updateProfile from "./updateProfile.js";
 import getHelpEmail from "./getHelpEmail.js";
+import refresh from "./refresh.js";
 
 export default {
     signUp: controllerWrapper(signUp),
@@ -15,4 +16,6 @@ export default {
     updateUserTheme: controllerWrapper(updateUserTheme),
     updateProfile: controllerWrapper(updateProfile),
     getHelpEmail: controllerWrapper(getHelpEmail),
+    refresh: controllerWrapper(refresh),
+
 };
