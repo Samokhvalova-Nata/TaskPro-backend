@@ -15,7 +15,7 @@ cardsRouter.delete("/:id", isValidId, cardsController.deleteCard);
 
 cardsRouter.put("/:id", isValidId, isEmptyBody, validateBody(cardSchema.cardUpdateSchema), cardsController.updateCard);
 
-cardsRouter.patch("/:id/transport", isValidId, isEmptyBody, cardsController.transportCard);
-// TODO add transportSchema and transportCard controller
+cardsRouter.patch("/:id/transport", isValidId, isEmptyBody, validateBody(cardSchema.cardTransportSchema), cardsController.transportCard);
+
 
 export default cardsRouter;

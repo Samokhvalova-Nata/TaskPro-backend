@@ -19,7 +19,7 @@ boardsRouter.delete("/:id", isValidId, boardsController.deleteBoard);
 
 boardsRouter.put("/:id", isValidId, isEmptyBody, validateBody(boardSchema.boardUpdateSchema), boardsController.updateBoard);
 
-boardsRouter.patch("/:id/transport", isValidId, isEmptyBody, boardsController.transportBoard);
+// boardsRouter.patch("/:id/transport", isValidId, isEmptyBody, boardsController.transportBoard);
 // TODO add transportSchema and transportBoard controller
 
 export default boardsRouter;

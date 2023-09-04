@@ -1,5 +1,6 @@
 import { HttpError } from "../../helpers/index.js";
 import Board from "../../models/board.js";
+import Column from "../../models/column.js";
 
 const deleteBoard = async (req, res) => {
     const { id } = req.params;
@@ -9,7 +10,9 @@ const deleteBoard = async (req, res) => {
     if (!result) {
         throw HttpError(404, `Board with id=${id} not found`);
     }
-    // TODO Delete all column and cards from this board
+
+    await Column.deleteMany({ board: id });
+
     res.status(200).json( {message: "Board deleted", deletedId: result._id });
 };
 

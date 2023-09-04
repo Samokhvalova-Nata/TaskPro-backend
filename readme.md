@@ -470,7 +470,32 @@
 ```
 - Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
 - Якщо такого id немає, повертається json з ключем "message": "Card with id not found" і статусом 404 Not Found
-- Якщо такий id і з body все добре, є повертається оновлений об'єкт картки зі статусом 200 OK:
+- Якщо такий id є і з body все добре, повертається оновлений об'єкт картки зі статусом 200 OK:
+```json
+{
+  "_id": "exampleid",
+  "title": "exampletitle",
+  "description": "exampledescription",
+  "priority": "examplepriority",
+  "deadline": "DD-MM-YYYY",
+  "column": "exampleid"
+}
+```
+
+### PUTCH `https://askpro-backend.onrender.com/api/cards:id/transport` - Transport card between columns
+- Отримує параметр id.
+- Якщо такого id немає, повертається json з ключем "message": "Card with id not found" і статусом 404 Not Found
+- Отримує body (поля обов'язкові з валідацією) у форматі:
+```json
+{
+  "source": "exampleid",
+  "destination": "exampleid",
+}
+```
+- У полі source отримує id колонки, з якої переноситься картка; у полі destination отримує id колонки, в яку переноситься картка.
+- Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
+- Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
+- Якщо з body все добре, повертається оновлений об'єкт картки зі статусом 200 OK:
 ```json
 {
   "_id": "exampleid",

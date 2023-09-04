@@ -23,9 +23,20 @@ const cardUpdateSchema = Joi.object({
     deadline: Joi.string().pattern(deadlineRegex),
 });
 
-// TODO add transportSchema
+
+const cardTransportSchema = Joi.object({
+    source: Joi.string().required()
+        .messages({
+            "any.required": `missing required "source" field`,
+        }),
+    destination: Joi.string().required()
+        .messages({
+            "any.required": `missing required "destination" field`,
+        }),
+})
 
 export default {
     cardAddSchema,
-    cardUpdateSchema
+    cardUpdateSchema,
+    cardTransportSchema
 };
