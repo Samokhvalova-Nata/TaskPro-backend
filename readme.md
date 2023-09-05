@@ -163,7 +163,7 @@
 - Якщо існує, створюється пара токенів (refreshToken та accessToken), зберігається в поточного юзера і повертається об'єкт і статус 200 OK:
 ```json
 {
-  "accessToken": "exampleaccessToken",
+  "accessToken": "exampleaccessToken", 
   "refreshToken": "examplerefreshToken"
 }
 ``` 

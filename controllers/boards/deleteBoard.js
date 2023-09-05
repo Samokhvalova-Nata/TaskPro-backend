@@ -13,6 +13,7 @@ const deleteBoard = async (req, res) => {
 
     await Column.deleteMany({ board: id });
 
+    // TODO delete cards
     res.status(200).json( {message: "Board deleted", deletedId: result._id });
 };
 

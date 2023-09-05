@@ -3,24 +3,11 @@
   "info": {
     "version": "1.0.0",
     "title": "Task Pro",
-    "description": "API documentation for GoIT project **Task Pro**",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "description": "API documentation for GoIT project **Task Pro**\n\nЦей проект є веб-додатком для керування задачами, який дозволяє користувачам розподіляти щоденні задачі по напрямках, етапах реалізації та пріоритетах. Головна мета проекту полягає в тому, щоб забезпечити користувачів інструментами для контролю виконання своїх задач.\n\nДодаток має дружній та зрозумілий інтерфейс користувача, що дозволяє зручно та швидко виконувати всі необхідні дії. Проект також забезпечує безпеку користувачів за допомогою шифрування паролів та ідентифікації за допомогою пари токенів.\n\n**Функціональні можливості:**\n\nРеєстрація та авторизація користувачів\n\nДодавання, редагування та видалення дошок та карток із задачами\n\nРозподілення задач між колонками за необхідним крітерієм, наприклад, по етапах реалізації\n\nВстановлення та контроль дедлайну виконання задачі\n\nФільтрація задач за пріоритетом виконання\n\n**Стек технологій, що використовується у проекті:**\n\nNode.js - середовище виконання JavaScript на сервері\n\nExpress.js - фреймворк для розробки веб-додатків на Node.js\n\nMongoDB - NoSQL база даних\n\nMongoose - бібліотека для роботи з MongoDB у Node.js"
   },
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
   "servers": [
     {
       "url": "https://askpro-backend.onrender.com"
-    },
-    {
-      "url": "https://localhost:5000"
     }
   ],
   "tags": [
@@ -47,11 +34,11 @@
         "tags": [
           "Auth"
         ],
-        "summary": "User registration",
+        "summary": "Sign up new user - User registration",
         "parameters": [],
         "requestBody": {
-          "description": "Registration user",
           "required": true,
+          "description": "# Опис параметрів запиту:\n\n**name** - string, ім'я користувача. **Обов'язковий параметр**\n\n**email** - string, електронна пошта користувача.  **Обов'язковий параметр**\n\n**password** - string, зашифрований пароль користувача.  **Обов'язковий параметр** \n",
           "content": {
             "application/json": {
               "schema": {
@@ -62,7 +49,7 @@
         },
         "responses": {
           "201": {
-            "description": "User created, registration successful",
+            "description": "New user created, registration successful\n\nОпис параметрів відповіді:\n\nJSON-об'єкт, який містить інформацію про поточного авторизованого користувача.\n\n**_id** - ObjectId, унікальний ідентифікатор користувача\n\n**name** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача.\n\n**avatarURL** - string, пустий рядок поки юзер не має аватара.\n\n**userTheme** - string, тема, обрана користувачем.\n\n**accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -72,21 +59,11 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorBadRequest"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorNotFound"
                 }
               }
             }
@@ -100,6 +77,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -109,22 +96,22 @@
         "tags": [
           "Auth"
         ],
-        "summary": "User login",
+        "summary": "Sign in existing user - User login",
         "parameters": [],
         "requestBody": {
-          "description": "Login user",
+          "description": "# Опис параметрів запиту:\n\n**email** - string, електронна пошта користувача. **Обов'язковий параметр**\n\n**password** - string, зашифрований пароль користувача. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserLogin"
+                "$ref": "#/components/schemas/UserSigninRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "User created, registration successful",
+            "description": "Created session for existing user, login successful\n \n Опис параметрів відповіді:\n \n JSON-об'єкт, який містить інформацію про поточного авторизованого користувача.\n \n **_id** - ObjectId, унікальний ідентифікатор користувача\n \n  **name** - string, ім'я користувача.\n \n **email** - string, електронна пошта користувача.\n \n **avatarURL** - string, пустий рядок поки юзер не має аватара.\n \n **userTheme** - string, тема, обрана користувачем.\n \n **accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -134,7 +121,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -144,11 +131,30 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Email or password is wrong",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorUnautorized"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Email or password is wrong"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -162,28 +168,32 @@
           "Auth"
         ],
         "summary": "User logout",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "No Content - User signed out"
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -196,22 +206,16 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Get user data by token",
-        "parameters": [
+        "summary": "Get current user info",
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "User exists in the database",
+            "description": "Logged user returned\n\nОпис параметрів відповіді:\n\nJSON-об'єкт, який містить інформацію про поточного авторизованого користувача.\n\n**_id** - ObjectId, унікальний ідентифікатор користувача\n\n **name** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача.\n\n**avatarURL** - string, пустий рядок поки юзер не має аватара.\n\n**userTheme** - string, тема, обрана користувачем.\n\n**accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -221,11 +225,21 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -239,32 +253,26 @@
           "Auth"
         ],
         "summary": "Change user theme",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Array's theme",
           "required": true,
+          "description": "# Опис параметрів запиту:\n\n**userTheme** - string, обрана тема користувача, значення має бути з масиву [\"light\", \"dark\", \"violet\"]. **Обов'язковий параметр**\n",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ChangeTheme"
+                "$ref": "#/components/schemas/ChangeThemeRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "User exists in the database",
+            "description": "Change user theme successful\n \n Опис параметрів відповіді:\n \n JSON-об'єкт, який містить інформацію про оновленого користувача.\n \n **_id** - ObjectId, унікальний ідентифікатор користувача\n \n  **name** - string, ім'я користувача.\n \n **email** - string, електронна пошта користувача.\n \n **avatarURL** - string, пустий рядок поки юзер не має аватара.\n \n **userTheme** - string, тема, обрана користувачем.\n \n **accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n \n",
             "content": {
               "application/json": {
                 "schema": {
@@ -274,7 +282,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -284,11 +292,21 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -302,56 +320,69 @@
           "Auth"
         ],
         "summary": "Update user profile",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Array's theme",
           "required": true,
+          "description": "# Опис параметрів запиту:\n\n**avatar** - file, отримує завантажений файл.\n\n**name** - string, ім'я користувача.\n\n**email** - string, електронна пошта користувача.\n\n**password** - string, зашифрований пароль користувача.\n\nПри зміні email або password видаляється пара токенів (refreshToken та accessToken) у поточного юзера.\n",
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateProfileRequest"
+                "$ref": "#/components/schemas/UpdateUserProfileRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "User successful apdate",
+            "description": "User successfully apdated\n \n Опис параметрів відповіді:\n \n JSON-об'єкт, який містить інформацію про оновленого користувача.\n \n **_id** - ObjectId, унікальний ідентифікатор користувача\n \n  **name** - string, ім'я користувача.\n \n **email** - string, електронна пошта користувача.\n \n **avatarURL** - string, пустий рядок поки юзер не має аватара.\n \n **userTheme** - string, тема, обрана користувачем.\n \n **accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateUserResponse"
+                  "$ref": "#/components/schemas/UpdateUserProfileResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error or name, email are already in use",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorBadRequest"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Description of the error."
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Bad request or name, email are already in use"
                 }
               }
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -365,20 +396,14 @@
           "Auth"
         ],
         "summary": "Send request help letter",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Support message",
+          "description": "# Опис параметрів запиту:\n\n**email** - string, електронна пошта користувача. **Обов'язковий параметр**\n\n**comment** - string, текст листа користувача. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -390,7 +415,7 @@
         },
         "responses": {
           "200": {
-            "description": "User successful apdate",
+            "description": "User help request letter have been successfully sent\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -400,7 +425,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -410,11 +435,21 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -428,21 +463,10 @@
           "Auth"
         ],
         "summary": "Refresh user token",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          }
-        ],
+        "parameters": [],
         "requestBody": {
-          "description": "User's refreshtoken",
           "required": true,
+          "description": "# Опис параметрів запиту:\n\n**refreshToken** - string, рефреш токен використовується для відновлення токену доступу. **Обов'язковий параметр**\n",
           "content": {
             "application/json": {
               "schema": {
@@ -453,7 +477,7 @@
         },
         "responses": {
           "200": {
-            "description": "User successful apdate",
+            "description": "User`s tokens successfully apdated\n \n Опис параметрів відповіді:\n\n **accessToken, refreshToken** - string, токен використовується для зберігання стану авторизації користувача в системі, що дозволяє користувачам здійснювати захищені запити до API. Токен є довільним рядком символів і генерується при кожній новій авторизації користувача.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -463,7 +487,7 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -473,11 +497,21 @@
             }
           },
           "403": {
-            "description": "Forbidden",
+            "description": "Перевіряється чи існує юзер з таким refreshToken.\nЯкщо не існує, сервер поверне відповідь з кодом статусу HTTP 403\n",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RefreshTokenForbidden"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -491,25 +525,39 @@
           "Boards"
         ],
         "summary": "Get all user boards",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "User exists in the database",
+            "description": "\nОпис параметрів відповіді:\n\nМасив, елементи якого - це JSON-об'єкти, що містять інформацію про дошки авторизованого користувача.\n\n**_id** - ObjectId, унікальний ідентифікатор дошки\n\n**title** - string, назва дошки.\n\n**icon** - string, іконка дошки.\n\n**background** - string, тег фону дошки.\n\n**backgroundURL** - object; пустий, якщо обране значення background тегу \"no-background\", інакще містить посилання на зображення фону картки \n\n**owner**:\n\n  **_id** - ObjectId, унікальний ідентифікатор користувача, якому належить дошка.\n\n  **name** - string, ім'я користувача.\n\n  **email** - string, електронна пошта користувача.\n\n  **avatarURL** - string, пустий рядок поки юзер не має аватара.\n\n  **userTheme** - string, тема, обрана користувачем.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetAllfBoards"
+                  "$ref": "#/components/schemas/GetAllBoardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -521,21 +569,15 @@
           "Boards"
         ],
         "summary": "Add new board",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Board's object",
           "required": true,
+          "description": "# Опис параметрів запиту:\n\n **title** - string, назва дошки. **Обов'язковий параметр**\n  \n**icon** - string, іконка дошки, значення має бути з масиву [ \"project\", \"star\", \"loading\", \"puzzle-piece\", \"container\", \"lightning\", \"colors\", \"hexagon\" ].\n  \n**background** - string, тег фону дошки, значення має бути з масиву [ \"no-background\",  \"magnolia\", \"starry-sky\", \"sakura\", \"half-moon\", \"palm-leaves\", \"clouds\", \"rocky-beach\", \"violet-circle\", \"full-moon\", \"yacht\", \"baloon\", \"mountains\", \"sea\", \"cappodocia\", \"night-trailer\" ].\n",
           "content": {
             "application/json": {
               "schema": {
@@ -546,7 +588,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "New board created\n\nОпис параметрів відповіді:\n\nJSON-об'єкт, що містить інформацію про нову дошку авторизованого користувача.\n\n**_id** - ObjectId, унікальний ідентифікатор дошки\n\n**title** - string, назва дошки.\n\n**icon** - string, іконка дошки.\n\n**background** - string, тег фону дошки.\n\n**backgroundURL** - object; пустий, якщо обране значення background тегу \"no-background\", інакще містить посилання на зображення фону картки \n\n**owner**:\n\n  **_id** - ObjectId, унікальний ідентифікатор користувача, якому належить дошка.\n\n  **name** - string, ім'я користувача.\n\n  **email** - string, електронна пошта користувача.\n\n  **avatarURL** - string, пустий рядок поки юзер не має аватара.\n\n  **userTheme** - string, тема, обрана користувачем.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -556,11 +598,31 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorAddBoard"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -583,26 +645,31 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleid"
-          },
+            "example": "64ef5eedd7daa47c3ec657cb"
+          }
+        ],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful",
+            "description": "Board got by id\n\nОпис параметрів відповіді:\n\nJSON-об'єкт, що містить інформацію про дошку авторизованого користувача з усіма колонками та картками у колонках.\n\n**_id** - ObjectId, унікальний ідентифікатор дошки\n\n**title** - string, назва дошки.\n\n**icon** - string, іконка дошки.\n\n**background** - string, тег фону дошки.\n\n**backgroundURL** - object; пустий, якщо обране значення background тегу \"no-background\", інакще містить посилання на зображення фону картки \n\n**owner**:\n\n  **_id** - ObjectId, унікальний ідентифікатор користувача, якому належить дошка.\n\n  **name** - string, ім'я користувача.\n\n  **email** - string, електронна пошта користувача.\n\n  **avatarURL** - string, пустий рядок поки юзер не має аватара.\n\n  **userTheme** - string, тема, обрана користувачем.\n\n**columns** - масив колонок, елементи якого це JSON-об'єкти, що містять інформацію про колонки дошки:\n\n  **_id** - ObjectId, унікальний ідентифікатор колонки, яка належить дошці.\n  \n  **title** -  string, назва колонки.\n  \n**cards** - масив карток, елементи якого це JSON-об'єкти, що містять інформацію про картки колонки:\n    \n  **_id** - ObjectId, унікальний ідентифікатор картки, яка належить колонці.\n  \n  **title** -  string, назва картки.\n    \n  **description** - string, опис картки.\n    \n  **priority** - string, пріоритет картки.\n    \n  **deadline** - string, дедлайн картки.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetBoardById"
+                  "$ref": "#/components/schemas/GetBoardByIdResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -613,6 +680,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorBoardNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -633,26 +710,31 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleid"
-          },
+            "example": "64ef5eedd7daa47c3ec657cb"
+          }
+        ],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Board deleted",
+            "description": "Board deleted\nОпис параметрів відповіді:\n\n  **message** - string.\n  \n  **deletedId** - ObjectId, унікальний ідентифікатор видаленої дошки\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeleteBoardById"
+                  "$ref": "#/components/schemas/DeleteBoardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -663,6 +745,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorBoardNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -683,21 +775,16 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleid"
-          },
+            "example": "64ef5eedd7daa47c3ec657cb"
+          }
+        ],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Board's object",
+          "description": "# Опис параметрів запиту:\n\n **title** - string, назва дошки. \n  \n**icon** - string, іконка дошки, значення має бути з масиву [ \"project\", \"star\", \"loading\", \"puzzle-piece\", \"container\", \"lightning\", \"colors\", \"hexagon\" ].\n  \n**background** - string, тег фону дошки, значення має бути з масиву [ \"no-background\",  \"magnolia\", \"starry-sky\", \"sakura\", \"half-moon\", \"palm-leaves\", \"clouds\", \"rocky-beach\", \"violet-circle\", \"full-moon\", \"yacht\", \"baloon\", \"mountains\", \"sea\", \"cappodocia\", \"night-trailer\" ].\n",
           "required": true,
           "content": {
             "application/json": {
@@ -709,7 +796,7 @@
         },
         "responses": {
           "200": {
-            "description": "Update successful",
+            "description": "Update board successful\n\nОпис параметрів відповіді:\n\nJSON-об'єкт, що містить інформацію про оновлену дошку авторизованого користувача.\n\n**_id** - ObjectId, унікальний ідентифікатор дошки\n\n**title** - string, назва дошки.\n\n**icon** - string, іконка дошки.\n\n**background** - string, тег фону дошки.\n\n**backgroundURL** - object; пустий, якщо обране значення background тегу \"no-background\", інакще містить посилання на зображення фону картки \n\n**owner** - ObjectId, унікальний ідентифікатор користувача, якому належить дошка.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -728,12 +815,32 @@
               }
             }
           },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorBoardUpdateById"
+                  "$ref": "#/components/schemas/ErrorBoardNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -747,20 +854,14 @@
           "Columns"
         ],
         "summary": "Add new column",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Column's object",
+          "description": "# Опис параметрів запиту:\n\n**title** - string, назва колонки. **Обов'язковий параметр**\n \n**board** - ObjectId, унікальний ідентифікатор дошки, до якої належить нова колонка. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -772,17 +873,17 @@
         },
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "New column created\n\nОпис параметрів відповіді:\n\n  **_id** - ObjectId, унікальний ідентифікатор колонки.\n  \n  **title** - string, назва колонки.\n\n**board** - ObjectId, унікальний ідентифікатор дошки, до якої належить нова колонка.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedNewColumn"
+                  "$ref": "#/components/schemas/AddColumnResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -791,12 +892,22 @@
               }
             }
           },
-          "404": {
-            "description": "Not found",
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotFoundColumn"
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Board for adding column not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBoardNotFound"
                 }
               }
             }
@@ -807,6 +918,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorConflictColumn"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -822,16 +943,6 @@
         "summary": "Delete column",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -839,16 +950,31 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleId"
+            "example": "64d360ea78fe376e4981199f"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Deleted",
+            "description": "Column deleted\nОпис параметрів відповіді:\n\n  **message** - string.\n  \n  **deletedId** - ObjectId, унікальний ідентифікатор видаленої колонки.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DeleteColumn"
+                  "$ref": "#/components/schemas/DeleteColumnResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -862,6 +988,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -871,16 +1007,6 @@
         ],
         "summary": "Update column by id",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          },
           {
             "name": "id",
             "in": "path",
@@ -892,8 +1018,13 @@
             "example": "exampleId"
           }
         ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
-          "description": "Column's object",
+          "description": "# Опис параметрів запиту:\n\n**title** - string, назва колонки. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -905,21 +1036,31 @@
         },
         "responses": {
           "200": {
-            "description": "Update column",
+            "description": "Сolumn updated\n\nОпис параметрів відповіді:\n\n  **_id** - ObjectId, унікальний ідентифікатор колонки.\n  \n  **title** - string, назва колонки.\n\n**board** - ObjectId, унікальний ідентифікатор дошки, до якої належить оновлена колонка.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SucessUpdateColumn"
+                  "$ref": "#/components/schemas/UpdateColumnResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -933,6 +1074,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -943,20 +1094,14 @@
           "Cards"
         ],
         "summary": "Add new cards",
-        "parameters": [
+        "parameters": [],
+        "security": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Column's object",
+          "description": "# Опис параметрів запиту:\n\n**title** - string, назва картки. **Обов'язковий параметр**\n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки, має бути з масиву [\"without priority\", \"low\", \"medium\", \"high\"].\n      \n**deadline** - string, дедлайн картки, дата у форматі \"DD-MM-YYYY\".\n    \n**column** - ObjectId, унікальний ідентифікатор колонки, до якої належить нова картка. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -968,17 +1113,17 @@
         },
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "New card created\n\n Опис параметрів відповіді:\n \n **_id** - ObjectId, унікальний ідентифікатор картки.\n\n**title** - string, назва картки.\n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки.\n      \n**deadline** - string, дедлайн картки.\n    \n**column** - ObjectId, унікальний ідентифікатор колонки, до якої належить нова картка.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedNewCard"
+                  "$ref": "#/components/schemas/AddCardsResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -987,12 +1132,32 @@
               }
             }
           },
-          "404": {
-            "description": "Not found",
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotFoundCard"
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Column for adding card not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundColumn"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -1008,16 +1173,6 @@
         "summary": "Delete cards",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1025,16 +1180,31 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleId"
+            "example": "64ec7c4dbab1cb55a780a0d4"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "responses": {
           "200": {
-            "description": "Deleted",
+            "description": "Card deleted\n\n Опис параметрів відповіді:\n \n **_id** - ObjectId, унікальний ідентифікатор картки.\n\n**title** - string, назва картки.\n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки.\n      \n**deadline** - string, дедлайн картки.\n    \n**column** - ObjectId, унікальний ідентифікатор колонки, до якої належить видалена картка.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreatedNewCard"
+                  "$ref": "#/components/schemas/AddCardsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -1048,6 +1218,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
+                }
+              }
+            }
           }
         }
       },
@@ -1058,16 +1238,6 @@
         "summary": "Update cards by id",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1075,11 +1245,16 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleId"
+            "example": "64ec7c4dbab1cb55a780a0d4"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Card's object",
+          "description": "# Опис параметрів запиту:\n\n**title** - string, назва картки. \n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки, має бути з масиву [\"without priority\", \"low\", \"medium\", \"high\"].\n      \n**deadline** - string, дедлайн картки, дата у форматі \"DD-MM-YYYY\".\n",
           "required": true,
           "content": {
             "application/json": {
@@ -1091,21 +1266,31 @@
         },
         "responses": {
           "200": {
-            "description": "Update card",
+            "description": "Card updated\n\n Опис параметрів відповіді:\n \n **_id** - ObjectId, унікальний ідентифікатор картки.\n\n**title** - string, назва картки.\n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки.\n      \n**deadline** - string, дедлайн картки.\n    \n**column** - ObjectId, унікальний ідентифікатор колонки, до якої належить оновлена картка.\n",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SucessUpdateCard"
+                  "$ref": "#/components/schemas/UpdateCardResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestColumn"
+                  "$ref": "#/components/schemas/BadRequestCard"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
                 }
               }
             }
@@ -1115,7 +1300,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateNotFoundColumn"
+                  "$ref": "#/components/schemas/NotFoundCard"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -1131,16 +1326,6 @@
         "summary": "Transport card between columns",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "The token issued to the current user",
-            "schema": {
-              "type": "string"
-            },
-            "example": "exampletoken"
-          },
-          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1148,11 +1333,16 @@
             "schema": {
               "type": "string"
             },
-            "example": "exampleId"
+            "example": "64ec7c4dbab1cb55a780a0d4"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
         ],
         "requestBody": {
-          "description": "Card's object",
+          "description": "# Опис параметрів запиту:\n\n**source** - ObjectId, унікальний ідентифікатор колонки, з якої переноситься картка. **Обов'язковий параметр**\n\n**destination** - ObjectId, унікальний ідентифікатор колонки, на яку переноситься картка. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -1164,7 +1354,7 @@
         },
         "responses": {
           "200": {
-            "description": "Deleted",
+            "description": "Card transported\n\n Опис параметрів відповіді:\n \n **_id** - ObjectId, унікальний ідентифікатор картки.\n\n**title** - string, назва картки.\n \n**description** - string, опис картки.\n      \n**priority** - string, пріоритет картки.\n      \n**deadline** - string, дедлайн картки.\n    \n**column** - ObjectId, унікальний ідентифікатор колонки, до якої перенесено картку.\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -1174,11 +1364,41 @@
             }
           },
           "400": {
-            "description": "Bad request",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Bearer auth failed - Якщо запит не містить дійсний токен або токен вже вичерпав свій термін дії, сервер поверне відповідь з кодом статусу HTTP 401",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundCard"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorServerResponse"
                 }
               }
             }
@@ -1188,6 +1408,13 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "UserSignupRequest": {
         "type": "object",
@@ -1199,36 +1426,31 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "user's name",
-            "example": "examplename"
+            "description": "User's name. It may contain Latin letters, numbers, signs, in different cases. It may include from 2 to 32 signs inclusive.",
+            "example": "Mark"
           },
           "email": {
             "type": "string",
-            "description": "user's email",
-            "example": "example@example.com"
+            "description": "User's email. It may contain Latin letters, numbers, signs, in different cases. It must contain signs \"@\"\" and \".\" (in host part).",
+            "example": "mark@gmail.com"
           },
           "password": {
             "type": "string",
-            "description": "user's password",
-            "example": "examplepassword"
+            "description": "User's password. It may contain Latin letters, numbers, signs, in different cases. It may include from 8 to 64 signs inclusive. Can't contain spaces.",
+            "example": "Mark1243"
           }
         }
       },
       "UserSignupResponse": {
         "type": "object",
-        "required": [
-          "name",
-          "email",
-          "password"
-        ],
         "properties": {
           "accessToken": {
             "type": "string",
-            "example": "exampleaccessToken"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
           },
           "refreshToken": {
             "type": "string",
-            "example": "refreshToken"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
           },
           "user": {
             "type": "object",
@@ -1236,74 +1458,178 @@
               "_id": {
                 "type": "string",
                 "description": "user's id in database",
-                "example": "exampleid"
+                "example": "64ec7c4dbab1cb55a780a0d4"
               },
               "name": {
                 "type": "string",
                 "description": "user's name",
-                "example": "examplename"
+                "example": "Mark"
               },
               "email": {
                 "type": "string",
                 "description": "user's email",
-                "example": "example@example.com"
+                "example": "mark@gmail.com"
               },
-              "password": {
+              "avatarURL": {
                 "type": "string",
-                "description": "user's password",
-                "example": "$2b$10$CU0iS5W90rQGilkcOB6r.uHwS4uQwmWbTKj3UAv3aynxLzI2lBSzu"
+                "example": "",
+                "description": "no user's avatar yet"
               },
               "userTheme": {
                 "type": "string",
                 "description": "user's theme",
                 "example": "light"
-              },
-              "createdAt": {
-                "type": "string",
-                "description": "date create user",
-                "example": "2023-08-26T16:42:43.050Z"
-              },
-              "updatedAt": {
-                "type": "string",
-                "description": "date update user",
-                "example": "2023-08-26T16:42:44.042Z"
-              },
-              "token": {
-                "type": "string",
-                "description": "user's token",
-                "example": "exampletoken"
               }
             }
           }
         }
       },
-      "ErrorBadRequest": {
+      "UserSigninRequest": {
         "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
-          "message": {
+          "email": {
             "type": "string",
-            "description": "Error message",
-            "example": "Bad request or description of error"
+            "description": "User's email. It may contain Latin letters, numbers, signs, in different cases. It must contain signs \"@\"\" and \".\" (in host part).",
+            "example": "mark@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password. It may contain Latin letters, numbers, signs, in different cases. It may include from 8 to 64 signs inclusive. Can't contain spaces.",
+            "example": "Mark1243"
           }
         }
       },
-      "ErrorNotFound": {
+      "UserSignInResponse": {
         "type": "object",
         "properties": {
-          "message": {
+          "accessToken": {
             "type": "string",
-            "description": "Error message",
-            "example": "Not found"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "user's id in database",
+                "example": "64ec7c4dbab1cb55a780a0d4"
+              },
+              "name": {
+                "type": "string",
+                "description": "user's name",
+                "example": "Mark"
+              },
+              "email": {
+                "type": "string",
+                "description": "user's email",
+                "example": "mark@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "https://exampleURL",
+                "description": "link to user's avatar or empty string if user have no avatar yet"
+              },
+              "userTheme": {
+                "type": "string",
+                "description": "user's theme",
+                "example": "light"
+              }
+            }
           }
         }
       },
-      "ErrorConflict": {
+      "ChangeThemeRequest": {
+        "type": "object",
+        "required": [
+          "userTheme"
+        ],
+        "properties": {
+          "userTheme": {
+            "type": "string",
+            "description": "User's theme",
+            "enum": [
+              "light",
+              "dark",
+              "violet"
+            ],
+            "example": "light"
+          }
+        }
+      },
+      "UpdateUserProfileRequest": {
         "type": "object",
         "properties": {
-          "message": {
+          "avatar": {
             "type": "string",
-            "description": "Error message",
-            "example": "Such email {email} is already registered"
+            "format": "binary",
+            "description": "User`s avatar. File in jpg or png",
+            "example": "avatar.jpg"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name. It may contain Latin letters, numbers, signs, in different cases. It may include from 2 to 32 signs inclusive",
+            "example": "Mark"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email. It may contain Latin letters, numbers, signs, in different cases. It must contain signs \"@\"\" and \".\" (in host part)",
+            "example": "mark@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password. It may contain Latin letters, numbers, signs, in different cases. It may include from 8 to 64 signs inclusive. Can't contain spaces.",
+            "example": "Mark1243"
+          }
+        }
+      },
+      "UpdateUserProfileResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "exampleAccessToken"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "exampleRefreshToken"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "user's id in database",
+                "example": "64ec7c4dbab1cb55a780a0d4"
+              },
+              "name": {
+                "type": "string",
+                "description": "user's name",
+                "example": "Mark"
+              },
+              "email": {
+                "type": "string",
+                "description": "user's email",
+                "example": "mark@gmail.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "https://exampleURL",
+                "description": "link to user's avatar or empty string if user have no avatar yet"
+              },
+              "userTheme": {
+                "type": "string",
+                "description": "user's theme",
+                "example": "light"
+              }
+            }
           }
         }
       },
@@ -1312,12 +1638,12 @@
         "properties": {
           "email": {
             "type": "string",
-            "description": "user's email",
-            "example": "example@example.com"
+            "description": "User's email. It may contain Latin letters, numbers, signs, in different cases. It must contain signs \"@\"\" and \".\" (in host part).",
+            "example": "mark@gmail.com"
           },
           "comment": {
             "type": "string",
-            "description": "user's comment",
+            "description": "User's comment",
             "example": "examplecomment"
           }
         }
@@ -1338,7 +1664,7 @@
           "refreshToken": {
             "type": "string",
             "description": "refreshToken",
-            "example": "refreshToken"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
           }
         }
       },
@@ -1348,18 +1674,68 @@
           "accessToken": {
             "type": "string",
             "description": "accessToken",
-            "example": "exampleaccessToken"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
           },
           "refreshToken": {
             "type": "string",
             "description": "refreshToken",
-            "example": "examplerefreshToken"
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWM3YzRkYmFiMWNiNTVhNzgwYTBkNCIsImlhdCI6MTY5MzkxMzcyMywiZXhwIjoxNjkzOTEzODQzfQ.idCG_1wBTso34eHr54IgV_kB6VTwPQ_5VT_XbUOzP_s"
+          }
+        }
+      },
+      "ErrorBadRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Bad request or description of error"
+          }
+        }
+      },
+      "ErrorConflict": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "409"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Such email is already registered"
+          }
+        }
+      },
+      "ErrorUnautorized": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "401"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Unautorized"
           }
         }
       },
       "RefreshTokenForbidden": {
         "type": "object",
         "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "403"
+          },
           "message": {
             "type": "string",
             "description": "Invalid token message",
@@ -1367,184 +1743,22 @@
           }
         }
       },
-      "UserLogin": {
-        "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
-        "properties": {
-          "email": {
-            "type": "string",
-            "description": "user's email",
-            "example": "example@example.com"
-          },
-          "password": {
-            "type": "string",
-            "description": "user's password",
-            "example": "examplepassword"
-          }
-        }
-      },
-      "UserSignInResponse": {
+      "ErrorServerResponse": {
         "type": "object",
         "properties": {
-          "accessToken": {
-            "type": "string",
-            "example": "exampleaccessToken"
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "500"
           },
-          "refreshToken": {
-            "type": "string",
-            "example": "refreshToken"
-          },
-          "user": {
-            "type": "object",
-            "properties": {
-              "user": {
-                "type": "object",
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "description": "user's id in database",
-                    "example": "exampleid"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "user's name",
-                    "example": "examplename"
-                  },
-                  "email": {
-                    "type": "string",
-                    "description": "user's email",
-                    "example": "example@example.com"
-                  },
-                  "userTheme": {
-                    "type": "string",
-                    "description": "user's theme",
-                    "example": "exampletheme"
-                  },
-                  "avatarURL": {
-                    "type": "string",
-                    "example": "http:://exampleURL",
-                    "description": "link to user's avatar"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "ErrorUnautorized": {
-        "type": "object",
-        "properties": {
           "message": {
             "type": "string",
-            "description": "Error message",
-            "example": "Unautorized. Email or password is wrong"
+            "description": "Server response message",
+            "example": "Server error"
           }
         }
       },
-      "ErrorAddBoard": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error add new board",
-            "example": "Missing required title field"
-          }
-        }
-      },
-      "ChangeTheme": {
-        "type": "object",
-        "required": [
-          "userTheme"
-        ],
-        "properties": {
-          "userTheme": {
-            "type": "string",
-            "description": "User's theme",
-            "enum": [
-              "light",
-              "dark",
-              "violet"
-            ],
-            "example": "light"
-          }
-        }
-      },
-      "UpdateProfileRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "description": "user's name",
-            "example": "exampleuser"
-          },
-          "email": {
-            "type": "string",
-            "description": "user's email",
-            "example": "example@example.com"
-          },
-          "password": {
-            "type": "string",
-            "description": "user's password",
-            "example": "examplepassword"
-          },
-          "avatar": {
-            "type": "string",
-            "description": "user's avatar",
-            "example": "link to user's avatar"
-          }
-        }
-      },
-      "UpdateUserResponse": {
-        "type": "object",
-        "properties": {
-          "accessToken": {
-            "type": "string",
-            "example": "exampleaccessToken"
-          },
-          "refreshToken": {
-            "type": "string",
-            "example": "refreshToken"
-          },
-          "user": {
-            "type": "object",
-            "properties": {
-              "user": {
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "description": "user's id in database",
-                    "example": "exampleid"
-                  },
-                  "name": {
-                    "type": "string",
-                    "description": "user's name",
-                    "example": "examplename"
-                  },
-                  "email": {
-                    "type": "string",
-                    "description": "user's email",
-                    "example": "example@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "description": "user's password",
-                    "example": "examplepassword"
-                  },
-                  "userTheme": {
-                    "type": "string",
-                    "description": "user's theme",
-                    "example": "light"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "GetAllfBoards": {
+      "GetAllBoardsResponse": {
         "type": "array",
         "items": {
           "type": "object",
@@ -1562,17 +1776,75 @@
             "icon": {
               "type": "string",
               "description": "Board's icons",
-              "example": "First Board"
+              "enum": [
+                "project",
+                "star",
+                "loading",
+                "puzzle-piece",
+                "container",
+                "lightning",
+                "colors",
+                "hexagon"
+              ],
+              "example": "project"
             },
             "background": {
               "type": "string",
               "description": "Board's background",
-              "example": "examplebackground"
+              "enum": [
+                "no-background",
+                "magnolia",
+                "starry-sky",
+                "sakura",
+                "half-moon",
+                "palm-leaves",
+                "clouds",
+                "rocky-beach",
+                "violet-circle",
+                "full-moon",
+                "yacht",
+                "baloon",
+                "mountains",
+                "sea",
+                "cappodocia",
+                "night-trailer"
+              ],
+              "example": "magnolia"
             },
             "backgroundURL": {
-              "type": "string",
-              "description": "Board's background",
-              "example": {}
+              "type": "object",
+              "properties": {
+                "mobile_1x": {
+                  "type": "string",
+                  "description": "посилання на зображення для мобільної версії 1x",
+                  "example": "https://exampleURL"
+                },
+                "mobile_2x": {
+                  "type": "string",
+                  "description": "посилання на зображення для мобільної версії 2x",
+                  "example": "https://exampleURL"
+                },
+                "tablet_1x": {
+                  "type": "string",
+                  "description": "посилання на зображення для планшетної версії 1x",
+                  "example": "https://exampleURL"
+                },
+                "tablet_2x": {
+                  "type": "string",
+                  "description": "посилання на зображення для планшетної версії 2x",
+                  "example": "https://exampleURL"
+                },
+                "desktop_1x": {
+                  "type": "string",
+                  "description": "посилання на зображення для десктопної версії 1x",
+                  "example": "https://exampleURL"
+                },
+                "desktop_2x": {
+                  "type": "string",
+                  "description": "посилання на зображення для десктопної версії 2x",
+                  "example": "https://exampleURL"
+                }
+              }
             },
             "owner": {
               "type": "object",
@@ -1580,60 +1852,118 @@
                 "_id": {
                   "type": "string",
                   "description": "owner's id",
-                  "example": "exampleid"
+                  "example": "64ec7c4dbab1cb55a780a0d4"
                 },
                 "name": {
                   "type": "string",
                   "description": "owner's name",
-                  "example": "examplename"
+                  "example": "Mark"
                 },
                 "email": {
                   "type": "string",
                   "description": "owner's email",
-                  "example": "example@example.com"
+                  "example": "mark@gmail.com"
                 },
                 "avatarURL": {
                   "type": "string",
                   "description": "owner's avatar",
-                  "example": "link to user's avatar"
+                  "example": "https://exampleURL"
                 },
                 "userTheme": {
                   "type": "string",
                   "description": "user's theme",
-                  "example": "exampletheme"
+                  "example": "light"
                 }
               }
             }
           }
         }
       },
-      "GetBoardById": {
+      "GetBoardByIdResponse": {
         "type": "object",
         "properties": {
           "_id": {
             "type": "string",
             "description": "Board's id",
-            "example": "exampleid"
+            "example": "64d360ea78fe376e4981199f"
           },
           "title": {
             "type": "string",
             "description": "Board's title",
-            "example": "exampletitle"
+            "example": "First Board"
           },
           "icon": {
             "type": "string",
             "description": "Board's icons",
-            "example": "exampleicon"
+            "enum": [
+              "project",
+              "star",
+              "loading",
+              "puzzle-piece",
+              "container",
+              "lightning",
+              "colors",
+              "hexagon"
+            ],
+            "example": "project"
           },
           "background": {
             "type": "string",
             "description": "Board's background",
-            "example": "examplebackground"
+            "enum": [
+              "no-background",
+              "magnolia",
+              "starry-sky",
+              "sakura",
+              "half-moon",
+              "palm-leaves",
+              "clouds",
+              "rocky-beach",
+              "violet-circle",
+              "full-moon",
+              "yacht",
+              "baloon",
+              "mountains",
+              "sea",
+              "cappodocia",
+              "night-trailer"
+            ],
+            "example": "magnolia"
           },
           "backgroundURL": {
-            "type": "string",
-            "description": "Board's background",
-            "example": {}
+            "type": "object",
+            "properties": {
+              "mobile_1x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "mobile_2x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "tablet_1x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "tablet_2x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "desktop_1x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "desktop_2x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 2x",
+                "example": "https://exampleURL"
+              }
+            }
           },
           "owner": {
             "type": "object",
@@ -1641,74 +1971,80 @@
               "_id": {
                 "type": "string",
                 "description": "owner's id",
-                "example": "exampleid"
+                "example": "64ec7c4dbab1cb55a780a0d4"
               },
               "name": {
                 "type": "string",
                 "description": "owner's name",
-                "example": "examplename"
+                "example": "Mark"
               },
               "email": {
                 "type": "string",
                 "description": "owner's email",
-                "example": "example@example.com"
+                "example": "mark@gmail.com"
               },
               "avatarURL": {
                 "type": "string",
                 "description": "owner's avatar",
-                "example": "link to user's avatar"
+                "example": "https://exampleURL"
               },
               "userTheme": {
                 "type": "string",
                 "description": "user's theme",
-                "example": "exampletheme"
-              },
-              "columns": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "description": "owner's id",
-                      "example": "exampleid"
-                    },
-                    "title": {
-                      "type": "string",
-                      "description": "Columns's title",
-                      "example": "exampletitle"
-                    },
-                    "cards": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "description": "Card's id",
-                            "example": "exampleid"
-                          },
-                          "title": {
-                            "type": "string",
-                            "description": "Card's title",
-                            "example": "exampletitle"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "Card's description",
-                            "example": "exampledescription"
-                          },
-                          "priority": {
-                            "type": "string",
-                            "description": "Card's priority",
-                            "example": "examplepriority"
-                          },
-                          "deadline": {
-                            "type": "string",
-                            "description": "Card's deadline",
-                            "example": "DD-MM-YYYY"
-                          }
-                        }
+                "example": "light"
+              }
+            }
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Column's id",
+                  "example": "64ec7c4dbab1cb55a780a0d4"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Column's title",
+                  "example": "First column"
+                },
+                "cards": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "description": "Card's id",
+                        "example": "64ec7c4dbab1cb55a780a0d4"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "Card's title",
+                        "example": "First card"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Card's description",
+                        "example": "Description"
+                      },
+                      "priority": {
+                        "type": "string",
+                        "description": "Card's priority",
+                        "example": "without priority",
+                        "enum": [
+                          "without priority",
+                          "low",
+                          "medium",
+                          "high"
+                        ]
+                      },
+                      "deadline": {
+                        "type": "string",
+                        "description": "Card's deadline",
+                        "example": "DD-MM-YYYY"
                       }
                     }
                   }
@@ -1726,13 +2062,13 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "board's title",
-            "example": "exampletitle"
+            "description": "Board's title",
+            "example": "First Board"
           },
           "icon": {
             "type": "string",
-            "description": "board's icon",
-            "example": "exampleicon",
+            "description": "Board's icon",
+            "example": "project",
             "enum": [
               "project",
               "star",
@@ -1746,8 +2082,8 @@
           },
           "background": {
             "type": "string",
-            "description": "board's",
-            "example": "examplebackground",
+            "description": "Board's",
+            "example": "magnolia",
             "enum": [
               "no-background",
               "magnolia",
@@ -1775,56 +2111,94 @@
           "_id": {
             "type": "string",
             "description": "Board's id",
-            "example": "exampleid"
+            "example": "64d360ea78fe376e4981199f"
           },
           "title": {
             "type": "string",
             "description": "Board's title",
-            "example": "exampletitle"
+            "example": "First Board"
           },
           "icon": {
             "type": "string",
             "description": "Board's icons",
-            "example": "exampleicon"
+            "enum": [
+              "project",
+              "star",
+              "loading",
+              "puzzle-piece",
+              "container",
+              "lightning",
+              "colors",
+              "hexagon"
+            ],
+            "example": "project"
           },
           "background": {
             "type": "string",
             "description": "Board's background",
-            "example": "link to background"
+            "enum": [
+              "no-background",
+              "magnolia",
+              "starry-sky",
+              "sakura",
+              "half-moon",
+              "palm-leaves",
+              "clouds",
+              "rocky-beach",
+              "violet-circle",
+              "full-moon",
+              "yacht",
+              "baloon",
+              "mountains",
+              "sea",
+              "cappodocia",
+              "night-trailer"
+            ],
+            "example": "magnolia"
           },
           "backgroundURL": {
-            "type": "string",
-            "description": "Board's background",
-            "example": {}
+            "type": "object",
+            "properties": {
+              "mobile_1x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "mobile_2x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "tablet_1x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "tablet_2x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "desktop_1x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "desktop_2x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 2x",
+                "example": "https://exampleURL"
+              }
+            }
           },
           "owner": {
             "type": "string",
-            "description": "Board's owner",
-            "example": "exampleid"
+            "description": "owner's id",
+            "example": "64ec7c4dbab1cb55a780a0d4"
           }
         }
       },
-      "ErrorBoardNotFound": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "Board with id not found"
-          }
-        }
-      },
-      "ErrorBoardUpdate": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "Missing fields"
-          }
-        }
-      },
-      "DeleteBoardById": {
+      "DeleteBoardResponse": {
         "type": "object",
         "properties": {
           "message": {
@@ -1842,10 +2216,48 @@
       "UpdateBoardRequest": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string",
-            "description": "anyfielsd",
-            "example": "examplename"
+            "description": "Board's title",
+            "example": "First Board"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Board's icon",
+            "example": "project",
+            "enum": [
+              "project",
+              "star",
+              "loading",
+              "puzzle-piece",
+              "container",
+              "lightning",
+              "colors",
+              "hexagon"
+            ]
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's",
+            "example": "magnolia",
+            "enum": [
+              "no-background",
+              "magnolia",
+              "starry-sky",
+              "sakura",
+              "half-moon",
+              "palm-leaves",
+              "clouds",
+              "rocky-beach",
+              "violet-circle",
+              "full-moon",
+              "yacht",
+              "baloon",
+              "mountains",
+              "sea",
+              "cappodocia",
+              "night-trailer"
+            ]
           }
         }
       },
@@ -1855,42 +2267,130 @@
           "_id": {
             "type": "string",
             "description": "Board's id",
-            "example": "exampleid"
+            "example": "64d360ea78fe376e4981199f"
           },
           "title": {
             "type": "string",
             "description": "Board's title",
-            "example": "exampletitle"
+            "example": "First Board"
           },
           "icon": {
             "type": "string",
             "description": "Board's icons",
-            "example": "exampleicon"
+            "enum": [
+              "project",
+              "star",
+              "loading",
+              "puzzle-piece",
+              "container",
+              "lightning",
+              "colors",
+              "hexagon"
+            ],
+            "example": "project"
           },
           "background": {
             "type": "string",
             "description": "Board's background",
-            "example": "link to background"
+            "enum": [
+              "no-background",
+              "magnolia",
+              "starry-sky",
+              "sakura",
+              "half-moon",
+              "palm-leaves",
+              "clouds",
+              "rocky-beach",
+              "violet-circle",
+              "full-moon",
+              "yacht",
+              "baloon",
+              "mountains",
+              "sea",
+              "cappodocia",
+              "night-trailer"
+            ],
+            "example": "magnolia"
           },
           "backgroundURL": {
-            "type": "string",
-            "description": "URL Board's background",
-            "example": {}
+            "type": "object",
+            "properties": {
+              "mobile_1x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "mobile_2x": {
+                "type": "string",
+                "description": "посилання на зображення для мобільної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "tablet_1x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "tablet_2x": {
+                "type": "string",
+                "description": "посилання на зображення для планшетної версії 2x",
+                "example": "https://exampleURL"
+              },
+              "desktop_1x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 1x",
+                "example": "https://exampleURL"
+              },
+              "desktop_2x": {
+                "type": "string",
+                "description": "посилання на зображення для десктопної версії 2x",
+                "example": "https://exampleURL"
+              }
+            }
           },
           "owner": {
             "type": "string",
-            "description": "Board's owner",
-            "example": "exampleid"
+            "description": "owner's id",
+            "example": "64ec7c4dbab1cb55a780a0d4"
           }
         }
       },
-      "ErrorBoardUpdateById": {
+      "ErrorAddBoard": {
         "type": "object",
         "properties": {
           "message": {
             "type": "string",
-            "description": "Error Board Update By Id",
+            "description": "Error add new board",
+            "example": "Missing required title field"
+          }
+        }
+      },
+      "ErrorBoardNotFound": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
             "example": "Board with id not found"
+          }
+        }
+      },
+      "ErrorBoardUpdate": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Missing fields"
           }
         }
       },
@@ -1904,66 +2404,36 @@
           "title": {
             "type": "string",
             "description": "Column's title",
-            "example": "exampletitle"
+            "example": "First column"
           },
           "board": {
             "type": "string",
             "description": "Board's id",
-            "example": "exampleid"
+            "example": "64ec7c4dbab1cb55a780a0d4"
           }
         }
       },
-      "CreatedNewColumn": {
+      "AddColumnResponse": {
         "type": "object",
         "properties": {
           "_id": {
             "type": "string",
             "description": "Column's id",
-            "example": "exampleid"
+            "example": "64ec7c4dbab1cb55a780a0d7"
           },
           "title": {
             "type": "string",
             "description": "Column's title",
-            "example": "exampletitle"
+            "example": "First column"
           },
           "board": {
             "type": "string",
             "description": "Boards's id",
-            "example": "exampleid"
+            "example": "64ec7c4dbab1cb55a780a0d4"
           }
         }
       },
-      "BadRequestColumn": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "missing required field"
-          }
-        }
-      },
-      "NotFoundColumn": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "Such board with id does not exist"
-          }
-        }
-      },
-      "ErrorConflictColumn": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "Such column with title is already added"
-          }
-        }
-      },
-      "DeleteColumn": {
+      "DeleteColumnResponse": {
         "type": "object",
         "properties": {
           "message": {
@@ -1974,7 +2444,7 @@
           "deletedId": {
             "type": "string",
             "description": "Column's id",
-            "example": "exampleid"
+            "example": "64ec7c4dbab1cb55a780a0d7"
           }
         }
       },
@@ -1984,7 +2454,72 @@
           "title": {
             "type": "string",
             "description": "Column's title",
-            "example": "exampletitle"
+            "example": "First column"
+          }
+        }
+      },
+      "UpdateColumnResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          },
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "First column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Boards's id",
+            "example": "64ec7c4dbab1cb55a780a0d4"
+          }
+        }
+      },
+      "BadRequestColumn": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "400"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "missing required field"
+          }
+        }
+      },
+      "NotFoundColumn": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "404"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Column with id not found"
+          }
+        }
+      },
+      "ErrorConflictColumn": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "409"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Such column with title is already added"
           }
         }
       },
@@ -1995,56 +2530,6 @@
             "type": "string",
             "description": "Column with id not found",
             "example": "Column with id not found"
-          }
-        }
-      },
-      "SucessUpdateColumn": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "exampleid"
-          },
-          "title": {
-            "type": "string",
-            "description": "Column's title",
-            "example": "exampletitle"
-          },
-          "board": {
-            "type": "string",
-            "description": "boardoard's id",
-            "example": "exampleid"
-          }
-        }
-      },
-      "SucessUpdateCard": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Card's id",
-            "example": "exampleid"
-          },
-          "title": {
-            "type": "string",
-            "description": "Card's title",
-            "example": "exampletitle"
-          },
-          "description": {
-            "type": "string",
-            "description": "Card's description",
-            "example": "exampledescription"
-          },
-          "deadline": {
-            "type": "string",
-            "description": "Card's deadline",
-            "example": "DD-MM-YYYY"
-          },
-          "column": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "exampleid"
           }
         }
       },
@@ -2059,17 +2544,17 @@
           "title": {
             "type": "string",
             "description": "Card's title",
-            "example": "exampletitle"
+            "example": "First card"
           },
           "description": {
             "type": "string",
             "description": "Card's description",
-            "example": "exampledescription"
+            "example": "Description"
           },
           "priority": {
             "type": "string",
             "description": "Card's priority",
-            "example": "examplepriority",
+            "example": "without priority",
             "enum": [
               "without priority",
               "low",
@@ -2085,32 +2570,38 @@
           "column": {
             "type": "string",
             "description": "Column's id",
-            "example": "exampleId"
+            "example": "64ec7c4dbab1cb55a780a0d7"
           }
         }
       },
-      "CreatedNewCard": {
+      "AddCardsResponse": {
         "type": "object",
         "properties": {
           "_id": {
             "type": "string",
             "description": "Card's id",
-            "example": "exampleid"
+            "example": "64ec7c4dbab1cb55a780a0d7"
           },
           "title": {
             "type": "string",
             "description": "Card's title",
-            "example": "exampletitle"
+            "example": "First card"
           },
           "description": {
             "type": "string",
             "description": "Card's description",
-            "example": "exampledescription"
+            "example": "Description"
           },
           "priority": {
             "type": "string",
             "description": "Card's priority",
-            "example": "examplepriority"
+            "example": "without priority",
+            "enum": [
+              "without priority",
+              "low",
+              "medium",
+              "high"
+            ]
           },
           "deadline": {
             "type": "string",
@@ -2119,14 +2610,147 @@
           },
           "column": {
             "type": "string",
+            "description": "Column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          }
+        }
+      },
+      "UpdateCardRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "First card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Description"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "without priority",
+            "enum": [
+              "without priority",
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          }
+        }
+      },
+      "UpdateCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
             "description": "Card's id",
-            "example": "exampleId"
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "First card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Description"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "without priority",
+            "enum": [
+              "without priority",
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          }
+        }
+      },
+      "TransportCardRequest": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Present column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Future column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          }
+        }
+      },
+      "TransportCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "First card"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "Description"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "without priority",
+            "enum": [
+              "without priority",
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "64ec7c4dbab1cb55a780a0d7"
           }
         }
       },
       "BadRequestCard": {
         "type": "object",
         "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "400"
+          },
           "message": {
             "type": "string",
             "description": "Error message",
@@ -2137,95 +2761,15 @@
       "NotFoundCard": {
         "type": "object",
         "properties": {
-          "message": {
-            "type": "string",
-            "description": "Error message",
-            "example": "Column with id not found"
-          }
-        }
-      },
-      "NotFoundColumnTransport": {
-        "type": "object",
-        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "Error status code",
+            "example": "404"
+          },
           "message": {
             "type": "string",
             "description": "Error message",
             "example": "Card with id not found"
-          }
-        }
-      },
-      "UpdateCardRequest": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "description": "Card's title",
-            "example": "exampletitle"
-          },
-          "description": {
-            "type": "string",
-            "description": "Card's description",
-            "example": "exampledescription"
-          },
-          "priority": {
-            "type": "string",
-            "description": "Card's priority",
-            "example": "examplepriority"
-          },
-          "deadline": {
-            "type": "string",
-            "description": "Card's deadline",
-            "example": "DD-MM-YYYY"
-          }
-        }
-      },
-      "TransportCardRequest": {
-        "type": "object",
-        "properties": {
-          "source": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "exampleid"
-          },
-          "destination": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "exampleid"
-          }
-        }
-      },
-      "TransportCardResponse": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "description": "Card's id",
-            "example": "exampleid"
-          },
-          "title": {
-            "type": "string",
-            "description": "Card's title",
-            "example": "exampletitle"
-          },
-          "description": {
-            "type": "string",
-            "description": "Card's description",
-            "example": "exampledescription"
-          },
-          "priority": {
-            "type": "string",
-            "description": "Card's priority",
-            "example": "examplepriority"
-          },
-          "deadline": {
-            "type": "string",
-            "description": "Card's deadline",
-            "example": "DD-MM-YYYY"
-          },
-          "column": {
-            "type": "string",
-            "description": "Column's id",
-            "example": "exampleid"
           }
         }
       }
