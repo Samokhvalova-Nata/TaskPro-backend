@@ -37,8 +37,8 @@
       "description": "Columns endpoints"
     },
     {
-      "name": "Tasks",
-      "description": "Tasks endpoints"
+      "name": "Cards",
+      "description": "Cards endpoints"
     }
   ],
   "paths": {
@@ -55,7 +55,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserSignupSchemaRequired"
+                "$ref": "#/components/schemas/UserSignupRequest"
               }
             }
           }
@@ -66,7 +66,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSignupSchemaResponse"
+                  "$ref": "#/components/schemas/UserSignupResponse"
                 }
               }
             }
@@ -128,7 +128,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                  "$ref": "#/components/schemas/UserSignInResponse"
                 }
               }
             }
@@ -215,7 +215,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                  "$ref": "#/components/schemas/UserSignInResponse"
                 }
               }
             }
@@ -238,7 +238,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Get user data by token",
+        "summary": "Change user theme",
         "parameters": [
           {
             "name": "Authorization",
@@ -257,7 +257,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ThemeOfArray"
+                "$ref": "#/components/schemas/ChangeTheme"
               }
             }
           }
@@ -268,7 +268,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserSignInSchemaResponse"
+                  "$ref": "#/components/schemas/UserSignInResponse"
                 }
               }
             }
@@ -295,11 +295,901 @@
           }
         }
       }
+    },
+    "/api/auth/update": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Update user profile",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Array's theme",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successful apdate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/support": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Send request help letter",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Support message",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendHelpLetterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successful apdate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendHelpLetterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorUnautorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh user token",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "User's refreshtoken",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successful apdate",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBadRequest"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshTokenForbidden"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/boards": {
+      "get": {
+        "tags": [
+          "Boards"
+        ],
+        "summary": "Get all user boards",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User exists in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllfBoards"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Boards"
+        ],
+        "summary": "Add new board",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Board's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBoardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorAddBoard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/boards{id}": {
+      "get": {
+        "tags": [
+          "Boards"
+        ],
+        "summary": "Get user board by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Board's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBoardById"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBoardNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Boards"
+        ],
+        "summary": "Delete board",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Board's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Board deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteBoardById"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBoardNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Boards"
+        ],
+        "summary": "Update board by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Board's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleid"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Board's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBoardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBoardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBoardUpdate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBoardUpdateById"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/columns": {
+      "post": {
+        "tags": [
+          "Columns"
+        ],
+        "summary": "Add new column",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedNewColumn"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundColumn"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorConflictColumn"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/columns{id}": {
+      "delete": {
+        "tags": [
+          "Columns"
+        ],
+        "summary": "Delete column",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Column's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteColumn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundColumn"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Columns"
+        ],
+        "summary": "Update column by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Column's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleId"
+          }
+        ],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateColumnRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update column",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SucessUpdateColumn"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateNotFoundColumn"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cards": {
+      "post": {
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Add new cards",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          }
+        ],
+        "requestBody": {
+          "description": "Column's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCardsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedNewCard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestCard"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundCard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cards{id}": {
+      "delete": {
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Delete cards",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Cards's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedNewCard"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundCard"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Update cards by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Card's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleId"
+          }
+        ],
+        "requestBody": {
+          "description": "Card's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SucessUpdateCard"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateNotFoundColumn"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cards{id}/transport": {
+      "patch": {
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Transport card between columns",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "The token issued to the current user",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampletoken"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Cards's id",
+            "schema": {
+              "type": "string"
+            },
+            "example": "exampleId"
+          }
+        ],
+        "requestBody": {
+          "description": "Card's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportCardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportCardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestColumn"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "UserSignupSchemaRequired": {
+      "UserSignupRequest": {
         "type": "object",
         "required": [
           "name",
@@ -324,7 +1214,7 @@
           }
         }
       },
-      "UserSignupSchemaResponse": {
+      "UserSignupResponse": {
         "type": "object",
         "required": [
           "name",
@@ -332,45 +1222,58 @@
           "password"
         ],
         "properties": {
-          "user_id": {
+          "accessToken": {
             "type": "string",
-            "description": "user's id in database",
-            "example": "exampleid"
+            "example": "exampleaccessToken"
           },
-          "name": {
+          "refreshToken": {
             "type": "string",
-            "description": "user's name",
-            "example": "examplename"
+            "example": "refreshToken"
           },
-          "email": {
-            "type": "string",
-            "description": "user's email",
-            "example": "example@example.com"
-          },
-          "password": {
-            "type": "string",
-            "description": "user's password",
-            "example": "$2b$10$CU0iS5W90rQGilkcOB6r.uHwS4uQwmWbTKj3UAv3aynxLzI2lBSzu"
-          },
-          "userTheme": {
-            "type": "string",
-            "description": "user's theme",
-            "example": "light"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "date create user",
-            "example": "2023-08-26T16:42:43.050Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "date update user",
-            "example": "2023-08-26T16:42:44.042Z"
-          },
-          "token": {
-            "type": "string",
-            "description": "user's token",
-            "example": "exampletoken"
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "user's id in database",
+                "example": "exampleid"
+              },
+              "name": {
+                "type": "string",
+                "description": "user's name",
+                "example": "examplename"
+              },
+              "email": {
+                "type": "string",
+                "description": "user's email",
+                "example": "example@example.com"
+              },
+              "password": {
+                "type": "string",
+                "description": "user's password",
+                "example": "$2b$10$CU0iS5W90rQGilkcOB6r.uHwS4uQwmWbTKj3UAv3aynxLzI2lBSzu"
+              },
+              "userTheme": {
+                "type": "string",
+                "description": "user's theme",
+                "example": "light"
+              },
+              "createdAt": {
+                "type": "string",
+                "description": "date create user",
+                "example": "2023-08-26T16:42:43.050Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "description": "date update user",
+                "example": "2023-08-26T16:42:44.042Z"
+              },
+              "token": {
+                "type": "string",
+                "description": "user's token",
+                "example": "exampletoken"
+              }
+            }
           }
         }
       },
@@ -404,6 +1307,66 @@
           }
         }
       },
+      "SendHelpLetterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "user's email",
+            "example": "example@example.com"
+          },
+          "comment": {
+            "type": "string",
+            "description": "user's comment",
+            "example": "examplecomment"
+          }
+        }
+      },
+      "SendHelpLetterResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Success letter",
+            "example": "Reply email has been sent"
+          }
+        }
+      },
+      "RefreshTokenRequest": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "refreshToken",
+            "example": "refreshToken"
+          }
+        }
+      },
+      "RefreshTokenResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "accessToken",
+            "example": "exampleaccessToken"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refreshToken",
+            "example": "examplerefreshToken"
+          }
+        }
+      },
+      "RefreshTokenForbidden": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Invalid token message",
+            "example": "Invalid token"
+          }
+        }
+      },
       "UserLogin": {
         "type": "object",
         "required": [
@@ -423,41 +1386,49 @@
           }
         }
       },
-      "UserSignInSchemaResponse": {
+      "UserSignInResponse": {
         "type": "object",
         "properties": {
-          "token": {
+          "accessToken": {
             "type": "string",
-            "description": "user's token",
-            "example": "exampletoken"
+            "example": "exampleaccessToken"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "refreshToken"
           },
           "user": {
             "type": "object",
             "properties": {
-              "user_id": {
-                "type": "string",
-                "description": "user's id in database",
-                "example": "exampleid"
-              },
-              "name": {
-                "type": "string",
-                "description": "user's name",
-                "example": "examplename"
-              },
-              "email": {
-                "type": "string",
-                "description": "user's email",
-                "example": "example@example.com"
-              },
-              "userTheme": {
-                "type": "string",
-                "description": "user's theme",
-                "example": "exampletheme"
-              },
-              "avatarURL": {
-                "type": "string",
-                "example": "http:://exampleURL",
-                "description": "link to user's avatar"
+              "user": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "user's id in database",
+                    "example": "exampleid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "user's name",
+                    "example": "examplename"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "user's email",
+                    "example": "example@example.com"
+                  },
+                  "userTheme": {
+                    "type": "string",
+                    "description": "user's theme",
+                    "example": "exampletheme"
+                  },
+                  "avatarURL": {
+                    "type": "string",
+                    "example": "http:://exampleURL",
+                    "description": "link to user's avatar"
+                  }
+                }
               }
             }
           }
@@ -469,11 +1440,21 @@
           "message": {
             "type": "string",
             "description": "Error message",
-            "example": "Unautorized email or password is wrong"
+            "example": "Unautorized. Email or password is wrong"
           }
         }
       },
-      "ThemeOfArray": {
+      "ErrorAddBoard": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error add new board",
+            "example": "Missing required title field"
+          }
+        }
+      },
+      "ChangeTheme": {
         "type": "object",
         "required": [
           "userTheme"
@@ -488,6 +1469,763 @@
               "violet"
             ],
             "example": "light"
+          }
+        }
+      },
+      "UpdateProfileRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "user's name",
+            "example": "exampleuser"
+          },
+          "email": {
+            "type": "string",
+            "description": "user's email",
+            "example": "example@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "user's password",
+            "example": "examplepassword"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "user's avatar",
+            "example": "link to user's avatar"
+          }
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "example": "exampleaccessToken"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "refreshToken"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "user's id in database",
+                    "example": "exampleid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "user's name",
+                    "example": "examplename"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "user's email",
+                    "example": "example@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "user's password",
+                    "example": "examplepassword"
+                  },
+                  "userTheme": {
+                    "type": "string",
+                    "description": "user's theme",
+                    "example": "light"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetAllfBoards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Board's id",
+              "example": "64d360ea78fe376e4981199f"
+            },
+            "title": {
+              "type": "string",
+              "description": "Board's title",
+              "example": "First Board"
+            },
+            "icon": {
+              "type": "string",
+              "description": "Board's icons",
+              "example": "First Board"
+            },
+            "background": {
+              "type": "string",
+              "description": "Board's background",
+              "example": "examplebackground"
+            },
+            "backgroundURL": {
+              "type": "string",
+              "description": "Board's background",
+              "example": {}
+            },
+            "owner": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "owner's id",
+                  "example": "exampleid"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "owner's name",
+                  "example": "examplename"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "owner's email",
+                  "example": "example@example.com"
+                },
+                "avatarURL": {
+                  "type": "string",
+                  "description": "owner's avatar",
+                  "example": "link to user's avatar"
+                },
+                "userTheme": {
+                  "type": "string",
+                  "description": "user's theme",
+                  "example": "exampletheme"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetBoardById": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "exampletitle"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Board's icons",
+            "example": "exampleicon"
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's background",
+            "example": "examplebackground"
+          },
+          "backgroundURL": {
+            "type": "string",
+            "description": "Board's background",
+            "example": {}
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "owner's id",
+                "example": "exampleid"
+              },
+              "name": {
+                "type": "string",
+                "description": "owner's name",
+                "example": "examplename"
+              },
+              "email": {
+                "type": "string",
+                "description": "owner's email",
+                "example": "example@example.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "owner's avatar",
+                "example": "link to user's avatar"
+              },
+              "userTheme": {
+                "type": "string",
+                "description": "user's theme",
+                "example": "exampletheme"
+              },
+              "columns": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "owner's id",
+                      "example": "exampleid"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Columns's title",
+                      "example": "exampletitle"
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "description": "Card's id",
+                            "example": "exampleid"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "Card's title",
+                            "example": "exampletitle"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Card's description",
+                            "example": "exampledescription"
+                          },
+                          "priority": {
+                            "type": "string",
+                            "description": "Card's priority",
+                            "example": "examplepriority"
+                          },
+                          "deadline": {
+                            "type": "string",
+                            "description": "Card's deadline",
+                            "example": "DD-MM-YYYY"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AddBoardRequest": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "board's title",
+            "example": "exampletitle"
+          },
+          "icon": {
+            "type": "string",
+            "description": "board's icon",
+            "example": "exampleicon",
+            "enum": [
+              "project",
+              "star",
+              "loading",
+              "puzzle-piece",
+              "container",
+              "lightning",
+              "colors",
+              "hexagon"
+            ]
+          },
+          "background": {
+            "type": "string",
+            "description": "board's",
+            "example": "examplebackground",
+            "enum": [
+              "no-background",
+              "magnolia",
+              "starry-sky",
+              "sakura",
+              "half-moon",
+              "palm-leaves",
+              "clouds",
+              "rocky-beach",
+              "violet-circle",
+              "full-moon",
+              "yacht",
+              "baloon",
+              "mountains",
+              "sea",
+              "cappodocia",
+              "night-trailer"
+            ]
+          }
+        }
+      },
+      "AddBoardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "exampletitle"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Board's icons",
+            "example": "exampleicon"
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's background",
+            "example": "link to background"
+          },
+          "backgroundURL": {
+            "type": "string",
+            "description": "Board's background",
+            "example": {}
+          },
+          "owner": {
+            "type": "string",
+            "description": "Board's owner",
+            "example": "exampleid"
+          }
+        }
+      },
+      "ErrorBoardNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Board with id not found"
+          }
+        }
+      },
+      "ErrorBoardUpdate": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Missing fields"
+          }
+        }
+      },
+      "DeleteBoardById": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Board deleted",
+            "example": "Board deleted"
+          },
+          "deletedId": {
+            "type": "string",
+            "description": "Id Board's deleted",
+            "example": "exampleid"
+          }
+        }
+      },
+      "UpdateBoardRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "anyfielsd",
+            "example": "examplename"
+          }
+        }
+      },
+      "UpdateBoardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Board's title",
+            "example": "exampletitle"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Board's icons",
+            "example": "exampleicon"
+          },
+          "background": {
+            "type": "string",
+            "description": "Board's background",
+            "example": "link to background"
+          },
+          "backgroundURL": {
+            "type": "string",
+            "description": "URL Board's background",
+            "example": {}
+          },
+          "owner": {
+            "type": "string",
+            "description": "Board's owner",
+            "example": "exampleid"
+          }
+        }
+      },
+      "ErrorBoardUpdateById": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error Board Update By Id",
+            "example": "Board with id not found"
+          }
+        }
+      },
+      "AddColumnRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "board"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "exampletitle"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "CreatedNewColumn": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "exampletitle"
+          },
+          "board": {
+            "type": "string",
+            "description": "Boards's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "BadRequestColumn": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "missing required field"
+          }
+        }
+      },
+      "NotFoundColumn": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Such board with id does not exist"
+          }
+        }
+      },
+      "ErrorConflictColumn": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Such column with title is already added"
+          }
+        }
+      },
+      "DeleteColumn": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Delete Column",
+            "example": "Column successfully deleted"
+          },
+          "deletedId": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "UpdateColumnRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "exampletitle"
+          }
+        }
+      },
+      "UpdateNotFoundColumn": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Column with id not found",
+            "example": "Column with id not found"
+          }
+        }
+      },
+      "SucessUpdateColumn": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Column's title",
+            "example": "exampletitle"
+          },
+          "board": {
+            "type": "string",
+            "description": "boardoard's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "SucessUpdateCard": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "exampletitle"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "exampledescription"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "AddCardsRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "column"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "exampletitle"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "exampledescription"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "examplepriority",
+            "enum": [
+              "without priority",
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleId"
+          }
+        }
+      },
+      "CreatedNewCard": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "exampletitle"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "exampledescription"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "examplepriority"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "exampleId"
+          }
+        }
+      },
+      "BadRequestCard": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "missing required field"
+          }
+        }
+      },
+      "NotFoundCard": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Column with id not found"
+          }
+        }
+      },
+      "NotFoundColumnTransport": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Card with id not found"
+          }
+        }
+      },
+      "UpdateCardRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "exampletitle"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "exampledescription"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "examplepriority"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          }
+        }
+      },
+      "TransportCardRequest": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
+          }
+        }
+      },
+      "TransportCardResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Card's id",
+            "example": "exampleid"
+          },
+          "title": {
+            "type": "string",
+            "description": "Card's title",
+            "example": "exampletitle"
+          },
+          "description": {
+            "type": "string",
+            "description": "Card's description",
+            "example": "exampledescription"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Card's priority",
+            "example": "examplepriority"
+          },
+          "deadline": {
+            "type": "string",
+            "description": "Card's deadline",
+            "example": "DD-MM-YYYY"
+          },
+          "column": {
+            "type": "string",
+            "description": "Column's id",
+            "example": "exampleid"
           }
         }
       }
