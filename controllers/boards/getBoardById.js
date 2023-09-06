@@ -61,8 +61,6 @@ const getBoardById = async (req, res) => {
                 'columns.createdAt': 0,
                 'columns.updatedAt': 0,
                 'columns.cards.column': 0,
-                // 'columns.cards.createdAt': 0,
-                // 'columns.cards.updatedAt': 0
             }
         },
         {

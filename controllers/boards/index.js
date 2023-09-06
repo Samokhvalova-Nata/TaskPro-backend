@@ -4,7 +4,6 @@ import getBoardById from "./getBoardById.js";
 import addBoard from "./addBoard.js";
 import deleteBoard from "./deleteBoard.js";
 import updateBoard from "./updateBoard.js";
-import transportBoard from "./transportBoard.js";
 
 
 export default {
@@ -13,5 +12,4 @@ export default {
     addBoard: controllerWrapper(addBoard),
     deleteBoard: controllerWrapper(deleteBoard),
     updateBoard: controllerWrapper(updateBoard),
-    transportBoard: controllerWrapper(transportBoard),
 };

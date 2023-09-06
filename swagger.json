@@ -1024,7 +1024,7 @@
           }
         ],
         "requestBody": {
-          "description": "# Опис параметрів запиту:\n\n**title** - string, назва колонки. **Обов'язковий параметр**\n",
+          "description": "# Опис параметрів запиту:\n\n**title** - string, назва колонки. **Обов'язковий параметр**\n \n**board** - ObjectId, унікальний ідентифікатор дошки, до якої належить оновлена колонка. **Обов'язковий параметр**\n",
           "required": true,
           "content": {
             "application/json": {
@@ -1071,6 +1071,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UpdateNotFoundColumn"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorConflictColumn"
                 }
               }
             }
@@ -2455,6 +2465,11 @@
             "type": "string",
             "description": "Column's title",
             "example": "First column"
+          },
+          "board": {
+            "type": "string",
+            "description": "Board's id",
+            "example": "64ec7c4dbab1cb55a780a0d4"
           }
         }
       },

@@ -391,11 +391,13 @@
 - Отримує body в json-форматі c оновленням поля title:
 ```json
 {
-  "title": "exampletitle"
+  "title": "exampletitle",
+  "board": "exampleid"
 }
 ```
 - Якщо body немає, повертається json з ключем {"message": "missing fields"} і статусом 400 Bad Request.
-- Якщо такого id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found
+- Якщо такого id немає, повертається json з ключем "message": "Column with id not found" і статусом 404 Not Found.
+- Якщо в базі є дошка з колонкою з такою назвою, повертається json з ключем {"message": "Such column with title has already been added to this Board"} і статусом 409 Conflict.
 - Якщо такий id і з body все добре, є повертається оновлений об'єкт картки зі статусом 200 OK:
 ```json
 {

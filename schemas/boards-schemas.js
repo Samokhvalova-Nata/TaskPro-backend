@@ -16,7 +16,6 @@ const boardUpdateSchema = Joi.object({
   background: Joi.string().valid(...backgroundList),
 });
 
-// TODO add transportSchema
 
 export default {
   boardAddSchema,
