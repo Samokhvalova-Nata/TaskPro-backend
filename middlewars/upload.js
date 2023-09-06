@@ -20,15 +20,6 @@ const storage = new CloudinaryStorage({
         cb(null, file.originalname);
     },
 });
-// const storage = new CloudinaryStorage({
-//     cloudinary: cloudinary,
-//     params: {
-//         folder: "avatars",
-//         format: async (req, file) => 'jpg',
-//         public_id: (req, file ) =>  `avatar_${file.originalname}`
-//         }
-//     }
-// );
 
 const upload = multer({ storage });
 

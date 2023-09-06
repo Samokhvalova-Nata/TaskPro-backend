@@ -360,7 +360,7 @@
 ```
 - Усі поля обов'язкові з валідацією.
 - В полі board отримує id дошки, в яку додається колонка. Якщо дошки з таким id немає, повертається json з ключем "message": "Such board with id does not exist" і статусом 404 Not Found.
-- Якщо в базі є колонка з такою назвою, повертається json з ключем {"message": "Such column with title is already added"} і статусом 409 Conflict.
+- Якщо в базі є дошка з колонкою з такою назвою, повертається json з ключем {"message": "Such column with title has already been added to this Board"} і статусом 409 Conflict.
 - Обов'язковий заголовок Authorization: "Bearer {{accessToken}}".
 - Якщо в body немає обов'язкового поля, повертається json з ключем {"message": "missing required field"} і статусом 400 Bad Request.
 - Якщо з body все добре, додається унікальний ідентифікатор в об'єкт картки і повертається об'єкт з доданим id та статусом 201 Created:

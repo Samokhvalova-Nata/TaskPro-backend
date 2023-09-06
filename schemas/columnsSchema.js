@@ -19,7 +19,12 @@ const columnsUpdateSchema = Joi.object({
         .required()
         .messages({
             "any.required": `missing required "title" field`,
-        })
+        }),
+    board: Joi.string()
+        .required()
+        .messages({
+            "any.required": `missing required "board" field`,
+        }),
 });
 
 export default {

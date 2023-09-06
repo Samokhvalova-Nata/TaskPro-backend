@@ -2519,7 +2519,7 @@
           "message": {
             "type": "string",
             "description": "Error message",
-            "example": "Such column with title is already added"
+            "example": "Such column with title has already been added to this Board"
           }
         }
       },
